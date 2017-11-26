@@ -9,14 +9,18 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppRoutingModule } from './/app-routing.module';
-import { ContactComponent } from './contact/contact.component'
+import { ContactComponent } from './contact/contact.component';
+import { UpdateInfoComponent } from './update-info/update-info.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ContactComponent
+    ContactComponent,
+    UpdateInfoComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
