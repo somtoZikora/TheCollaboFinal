@@ -12,6 +12,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { ContactComponent } from './contact/contact.component';
 import { UpdateInfoComponent } from './update-info/update-info.component';
 import { SignupComponent } from './signup/signup.component';
+import { CreateGroupComponent } from './create-group/create-group.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { SignupComponent } from './signup/signup.component';
     HomeComponent,
     ContactComponent,
     UpdateInfoComponent,
-    SignupComponent
+    SignupComponent,
+    CreateGroupComponent
   ],
   imports: [
     BrowserModule,
