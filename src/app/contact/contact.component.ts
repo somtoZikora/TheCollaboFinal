@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ContactUsService} from '../contact-us.service';
+import {send} from "q";
 
 @Component({
   selector: 'app-contact',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _contactUsService : ContactUsService) { }
 
-  ngOnInit() {
+  submitted = false
+  messageBody = {
+  name: '',
+  email: '',
+  subject: '',
+    message: '',
+};
+  ngOnInit(){
   }
 
+  onSubmit(){
+   this._contactUsService.sendMail(this.messageBody).subscribe(data => {
+     //this.router.navigate(['/contact'])
+     //console.log(data.sent)
+     this.submitted = data.sent
+   })
+  }
 }

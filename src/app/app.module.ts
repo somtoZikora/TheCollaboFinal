@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms'
+import {ContactUsService} from './contact-us.service';
 
 
 import { AppComponent } from './app.component';
@@ -25,13 +28,15 @@ import { CreateGroupModule } from './create-group/create-group.module';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     CreateGroupModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ContactUsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
