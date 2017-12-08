@@ -12,13 +12,14 @@
   <div class="row">
     <div class="col-md-8">
       <div class="well well-sm">
-        <form>
+        <form (ngSubmit) = "onSubmit()" #signupForm = "ngForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="username">
                   Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter username" required="required" />
+                <input type="text" class="form-control" id="username" placeholder="Enter username" required="required"
+                [(ngModel)] = "user.username" name="username"/>
               </div>
             </div>
             <div class="col-md-6">
@@ -28,14 +29,16 @@
                 <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
                                 </span>
-                  <input type="email" class="form-control" id="email" placeholder="Enter email" required="required" /></div>
+                  <input type="email" class="form-control" id="email" placeholder="Enter email" required="required"
+                  [(ngModel)]="user.email" name="email"/></div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="password">
                   Password</label>
-                <input type="text" class="form-control" id="password" placeholder="Enter password" required="required" />
+                <input type="text" class="form-control" id="password" placeholder="Enter password" required="required"
+                [(ngModel)] = "user.password" name="password"/>
               </div>
             </div>
             <div class="col-md-6">
