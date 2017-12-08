@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms'
+import {FormsModule} from '@angular/forms';
+
 import {ContactUsService} from './contact-us.service';
+import {SignUpServiceService} from './sign-up-service.service';
 
 
 import { AppComponent } from './app.component';
@@ -36,7 +38,7 @@ import { CreateGroupModule } from './create-group/create-group.module';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ContactUsService],
+  providers: [ContactUsService, SignUpServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
