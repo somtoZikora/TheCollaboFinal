@@ -14,8 +14,8 @@ Create an account with `https://sendgrid.com/` for the email carrier
 ## Mongo DB
 Create an account with `https://mlab.com/`
 
-##.env file
-Create a file with .env extension in the root folder. Paste the code  
+## env file
+Create a file and name it .env in the root folder. Paste the code  
 below with account details for Send Grid and Mlab  
 `SENDGRID_USER` = send-grid-username  
 `SENDGRID_PASSWORD` = send-grid-password  
