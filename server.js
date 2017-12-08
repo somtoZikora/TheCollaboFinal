@@ -5,17 +5,23 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var http = require('http');
-const dotenv = require('dotenv').config();
 const mongoose = require('mongoose')
 const expressValidator = require('express-validator');
+
+/**
+ * load enviroment variables into process
+ */
+const dotenv = require('dotenv').config();
+
+/**
+ * controllers(route handlers)
+ */
 const contactController = require('./controllers/contact');
+const userController = require('./controllers/user')
 
 var port = 3000;
 
 var app = express();
-
-//load dotenv variables from .env files where API keys and password are stored
-//dotenv.load({path: '.env.example'})
 
 /*connect to mongo db*/
 mongoose.Promise = global.Promise
@@ -46,11 +52,13 @@ app.use(expressValidator());
 
 app.get('/api/contact', contactController.getContact);
 app.post('/api/contact', contactController.postContact);
+app.post('/api/signup', userController.postSignup);
 
 /* Send all other requests to angular app */
 app.get('*', (req, res)=>{
   res.sendFile(path.join(__dirname, 'dist/index.html' ))
 })
+
 
 //app.use('/api', tasks);
 
