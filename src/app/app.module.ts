@@ -5,6 +5,7 @@ import {FormsModule} from '@angular/forms';
 
 import {ContactUsService} from './contact-us.service';
 import {SignUpServiceService} from './sign-up-service.service';
+import {UpdateInfoService} from './sign-up-service.service';
 
 
 import { AppComponent } from './app.component';
@@ -38,7 +39,7 @@ import { CreateGroupModule } from './create-group/create-group.module';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ContactUsService, SignUpServiceService],
+  providers: [ContactUsService, SignUpServiceService, UpdateInfoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

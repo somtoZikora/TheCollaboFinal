@@ -15,3 +15,14 @@ export class SignUpServiceService {
   }
 
 }
+
+@Injectable()
+export class UpdateInfoService {
+
+  constructor(private _http: HttpClient, private router: Router) { }
+  updateInfo(user): any {
+    return this._http.post<redirectURL>('/api/update-info', user);
+  }
+
+}
+
