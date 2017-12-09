@@ -53,6 +53,7 @@ app.use(expressValidator());
 app.get('/api/contact', contactController.getContact);
 app.post('/api/contact', contactController.postContact);
 app.post('/api/signup', userController.postSignup);
+app.post('/api/update-info', userController.postUpdateInfo)
 
 /* Send all other requests to angular app */
 app.get('*', (req, res)=>{
