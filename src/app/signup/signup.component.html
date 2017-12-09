@@ -10,7 +10,7 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
+    <div [hidden]="signup" class="col-md-8">
       <div class="well well-sm">
         <form (ngSubmit) = "onSubmit()" #signupForm = "ngForm">
           <div class="row">
@@ -49,6 +49,27 @@
         </form>
       </div>
     </div>
+
+    <div [hidden]="!signup" class="col-md-8">
+      <div>
+        <h2>You submitted the following:</h2>
+        <div class="row">
+          <div class="col-xs-3">Name</div>
+          <div class="col-xs-9  pull-left">{{ user.name }}</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">subject</div>
+          <div class="col-xs-9 pull-left">{{ user.subject }}</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">message</div>
+          <div class="col-xs-9 pull-left">{{ user.message }}</div>
+        </div>
+        <br>
+        <button class="btn btn-primary" (click)="signup=false">Back</button>
+      </div>
+    </div>
+
     <div class="col-md-4">
       <form>
         <legend><span class="glyphicon glyphicon-globe"></span> Our office</legend>
