@@ -16,7 +16,7 @@ exports.postSignup = (req, res,next) => {
     }
   }
 
-  // use schema to create insert data into the db
+  // use model to create insert data into the db
   User.create(userData, (err, user) =>{
     if(err){
       return next(err)
@@ -26,4 +26,31 @@ exports.postSignup = (req, res,next) => {
     }
   })
 };
+
+exports.postUpdateInfo = (req, res, next) => {
+  var updatedUserData = {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    language: req.body.language,
+    courseofstudies: req.body.courseofstudies,
+    degree: req.body.degree
+  }
+
+  //use model to update user in the db
+  User.findOne({username:'john'},(err, doc)=>{
+    if(err){
+      console.log(err)
+    }
+    doc.firstname = updatedUserData.firstname;
+    doc.lastname = updatedUserData.lastname;
+    doc.language =updatedUserData.language;
+    doc.courseofstudies =updatedUserData.courseofstudies;
+    doc.degree = updatedUserData.degree;
+    doc.save((err, doc, numAffected)=>{
+      if(err){
+        console.log(err)
+      }
+    });
+  });
+}
 
