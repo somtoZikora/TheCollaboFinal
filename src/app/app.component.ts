@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app';
   d = new Date()
-  date = this.d.getFullYear()
+  date = this.d.getFullYear();
 }
