@@ -19,7 +19,7 @@
                 <label for="username">
                   Username</label>
                 <input type="text" class="form-control" id="username" placeholder="Enter username" required="required"
-                [(ngModel)] = "user.username" name="username"/>
+                [(ngModel)] = "username" name="username"/>
               </div>
             </div>
             <div class="col-md-6">
@@ -30,7 +30,7 @@
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
                                 </span>
                   <input type="email" class="form-control" id="email" placeholder="Enter email" required="required"
-                  [(ngModel)]="user.email" name="email"/></div>
+                  [(ngModel)]="email" name="email"/></div>
               </div>
             </div>
             <div class="col-md-6">
@@ -38,7 +38,7 @@
                 <label for="password">
                   Password</label>
                 <input type="text" class="form-control" id="password" placeholder="Enter password" required="required"
-                [(ngModel)] = "user.password" name="password"/>
+                [(ngModel)] = "password" name="password"/>
               </div>
             </div>
             <div class="col-md-6">
@@ -55,15 +55,15 @@
         <h2>You submitted the following:</h2>
         <div class="row">
           <div class="col-xs-3">Name</div>
-          <div class="col-xs-9  pull-left">{{ user.name }}</div>
+          <div class="col-xs-9  pull-left">{{ name }}</div>
         </div>
         <div class="row">
           <div class="col-xs-3">subject</div>
-          <div class="col-xs-9 pull-left">{{ user.subject }}</div>
+          <div class="col-xs-9 pull-left">{{ subject }}</div>
         </div>
         <div class="row">
           <div class="col-xs-3">message</div>
-          <div class="col-xs-9 pull-left">{{ user.message }}</div>
+          <div class="col-xs-9 pull-left">{{message }}</div>
         </div>
         <br>
         <button class="btn btn-primary" (click)="signup=false">Back</button>
