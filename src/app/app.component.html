@@ -1,74 +1,10 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/home">
-        <img src="assets/images/app/logo.JPG" class="logo">
-      </a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a  routerLink="/home">
-        Home <span class="sr-only">(current)</span>
-      </a></li>
-      <li><a routerLink="/signup">Sign up</a></li>
-      <li><a routerLink="/update-info">Update</a></li>
-      <li><a href="#">Give Back</a></li>
-      <li><a routerLink="/create-group">Create Groups</a></li>
-      <li class="dropdown" dropdown> <!-- {1} -->
-        <a dropdownToggle role="button"> <!-- {2} -->
-          Dropdown <span class="caret"></span></a>
-        <ul *dropdownMenu class="dropdown-menu"> <!-- {3} -->
-          <li><a href="#"> Exams</a></li>
-          <li><a href="#">Chats</a></li>
-          <li><a href="#">Exercise</a></li>
-          <li role="separator" class="divider"></li>
-          <li><a href="#">Create Groups</a></li>
-        </ul>
-      </li>
-      <li><a  routerLink="/contact">Contact Us</a></li>
-    </ul>
-  </div>
-</nav>
-
-
+<div class="body">
+  <div class="content">
+<app-navbar></app-navbar>
+<flash-messages></flash-messages>
 <router-outlet></router-outlet>
-
-
-<footer style="background-color: black">
-  <div class="container" >
-    <div class="row" >
-      <div class="col-md-4">
-        <span class="copyright">Copyright &copy; thecollaborator.com {{date}}</span>
-      </div>
-      <div class="col-md-4">
-        <ul class="list-inline social-buttons">
-          <li class="list-inline-item">
-            <a href="#">
-              <i class="fa fa-twitter"></i>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a href="#">
-              <i class="fa fa-facebook"></i>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a href="#">
-              <i class="fa fa-linkedin"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-md-4">
-        <ul class="list-inline quicklinks">
-          <li class="list-inline-item">
-            <a href="#">Privacy Policy</a>
-          </li>
-          <li class="list-inline-item">
-            <a href="#">Terms of Use</a>
-          </li>
-        </ul>
-      </div>
-    </div>
   </div>
-</footer>
-
+  <div class="footer">
+<app-footer></app-footer>
+  </div>
+</div>
