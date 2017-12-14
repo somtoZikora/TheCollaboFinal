@@ -11,6 +11,7 @@ interface redirectURL {
 export class ContactUsService {
   constructor(private  _http: HttpClient, private router: Router) { }
 
+  // Used in Contact Component
   sendMail(message): any {
     return this._http.post<redirectURL>('/user/contact', message);
   }
