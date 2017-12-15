@@ -1,18 +1,17 @@
-
 /**
  * Created by opaluwa john on 12/8/2017.
  */
 
 var User = require('../models/User');
 const passport = require('passport');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+var bcrypt = require('bcryptjs');
 
 // Used by signUpComponent
 exports.postSignup = (req, res,next) => {
-  if(req.body.email &&
+  if (req.body.email &&
     req.body.username &&
-    req.body.password )
-  {
+    req.body.password) {
     var newUser = new User({
       email: req.body.email,
       username: req.body.username,
@@ -20,33 +19,45 @@ exports.postSignup = (req, res,next) => {
     });
   }
   // use model to create insert data into the db
-  User.addUser(newUser, (err, user) =>{
-    if(err){
-      res.json({sucess: false, message: 'failed to register User'});
-    }else{
-      res.json({sucess: true, message: 'User Registered'});
-    }
-  })
+  //User.addUser(newUser, (err, user) =>{
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) throw err
+    bcrypt.hash(newUser.password, salt, (err, hash) => {
+      if (err) throw  err;
+      newUser.password = hash;
+      newUser.save((err, user) => {
+        if (err) {
+          res.json({sucess: false, message: 'failed to register User'});
+        } else {
+          res.json({sucess: true, message: 'User Registered'});
+        }
+      });
+    });
+  });
 };
 
 //Used by signIn Component
 exports.postAuthenticate = (req, res) => {
   var username = req.body.username;
   var password = req.body.password;
-  User.getUserByUsername(username, (err, user) => {
-    if(err){
+  const query = {username: username}
+  //load a user from database using username
+  //User.getUserByUsername(username, (err, user) => {
+  User.findOne(query, (err, user) => {
+    if(err){ ;
       throw error;
     }
     if(!user){
       return res.json({success: false, message: 'user not found'});
     }
-    User.comparePassword(password, user.password, (err, isMatch) => {
+    //Compare the password supplied in signIn form with
+    //password of the user loaded from database
+    bcrypt.compare(password, user.password, (err, isMatch) =>{
       if(err) throw err;
       if(isMatch){
         var token = jwt.sign({user}, process.env.JWT_SECRET, {
           expiresIn: 604800 //a week
         });
-
         res.json({
           success: true,
           token: 'bearer ' + token,
@@ -56,8 +67,8 @@ exports.postAuthenticate = (req, res) => {
             email: user.email
           }
         })
-      }else {
-        return res.json({success: false, msg: 'Wrong'});
+      } else {
+        return res.json({success: false, message: 'Wrong'});
       }
     })
   })
@@ -89,6 +100,7 @@ exports.postUpdateInfo = (req, res, next) => {
     courseofstudies: req.body.courseofstudies,
     degree: req.body.degree
   }
+
   //user model to update user in the db
   User.findOne({username:'ddn'},(err, doc)=>{
     if(err){
@@ -110,7 +122,7 @@ exports.postUpdateInfo = (req, res, next) => {
 
 
 
-// ##################################---UnUsed---###################################################################
+//Unused
 exports.postSignIn = (req, res) => {
   User.findOne({email: req.body.email, password: req.body.password}, (err, user) => {
     if(err){
