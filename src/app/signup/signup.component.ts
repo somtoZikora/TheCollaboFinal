@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationService} from '../_services/authentication.service';
-import {ValidateService} from '../_services/validate.service';
-import {LocalStorageService} from 'angular-2-local-storage';
+import {AuthenticationService} from '../@core/services/authentication.service';
+import {ValidateService} from '../@core/services//validate.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
 
@@ -19,7 +18,6 @@ export class SignupComponent implements OnInit {
     email: String
 
   constructor(private _AuthenticationService: AuthenticationService,
-              private _localstorageService: LocalStorageService,
               private  _validateService: ValidateService,
               private _flashMessagesService: FlashMessagesService,
               private  _router: Router) { }

@@ -7,7 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import {ProfileComponent} from './profile/profile.component';
-import {AuthGuard} from './_guards/auth.guard';
+import {AuthGuard} from './@core/guards/auth.guard';
 
 
 
@@ -25,4 +25,5 @@ const routes: Routes = [
   imports: [ RouterModule.forRoot(routes) ],
   exports: [ RouterModule ]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
