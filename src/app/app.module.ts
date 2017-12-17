@@ -5,6 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {NbThemeModule} from '@nebular/theme';
 
 import { CoreModule } from './@core/core.module';
+import {ThemeModule} from './@theme/theme.module';
 
 
 import {FlashMessagesService} from 'angular2-flash-messages';
@@ -16,8 +17,6 @@ import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from './footer/footer.component';
 import { ProfileComponent } from './profile/profile.component';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -26,7 +25,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateGroupModule } from './create-group/create-group.module';
-import {LocalStorageModule} from 'angular-2-local-storage';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 
 
@@ -39,8 +37,6 @@ import {FlashMessagesModule} from 'angular2-flash-messages';
     DashboardComponent,
     SignupComponent,
     SigninComponent,
-    NavbarComponent,
-    FooterComponent,
     ProfileComponent,
   ],
   imports: [
@@ -52,13 +48,10 @@ import {FlashMessagesModule} from 'angular2-flash-messages';
     CreateGroupModule,
     AppRoutingModule,
     HttpClientModule,
-    LocalStorageModule.withConfig({
-      prefix: 'my-app',
-      storageType: 'localStorage'
-    }),
     FlashMessagesModule,
     NbThemeModule.forRoot({name: 'Default'}),
-    CoreModule.forRoot()
+    CoreModule.forRoot(),
+    ThemeModule
   ],
   providers: [FlashMessagesService],
   bootstrap: [AppComponent]
