@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationService} from '../@core/services/authentication.service';
+import {AuthenticationService} from '../../../../@core/services/authentication.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
+
+
 
 @Component({
   selector: 'app-signin',
@@ -27,7 +29,7 @@ export class SigninComponent implements OnInit {
       if (data.success) {
         this._AuthenticationService.storeUserData(data.token, data.user);
         this._FlashMessageService.show('You are now logged In', {cssClass: 'alert-success', timeout: 5000});
-        this._Router.navigate(['/dashboard']);
+        this._Router.navigate(['/']);
       } else {
         this._FlashMessageService.show(data.message, {cssClass: 'alert-danger', timeout: 5000});
         this._Router.navigate(['/login']);
