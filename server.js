@@ -36,11 +36,6 @@ mongoose.connection.on('error', (err)=>{
   console.log('%s MongoDB connection error. Please make sure MongoDB is running')
 })
 
-//View Engine
-//app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'ejs');
-//app.engine('html', require('ejs').renderFile);
-
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'dist')));
 
@@ -61,12 +56,11 @@ passportCofig.strategy(passport);
 app.post('/user/signup', userController.postSignup);
 app.post('/user/authenticate', userController.postAuthenticate);
 app.get('/user/profile',passport.authenticate('jwt', {session: false}), userController.getMe);
-
+app.post('/user/update-info', userController.postUpdateInfo);
 app.get('/user/contact', contactController.getContact);
 app.post('/user/contact', contactController.postContact);
 
-
-app.post('/user/update-info', userController.postUpdateInfo);
+//unUsed
 app.post('/user/signin', userController.postSignIn);
 
 

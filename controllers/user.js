@@ -18,6 +18,7 @@ exports.postSignup = (req, res,next) => {
       password: req.body.password
     });
   }
+
   // use model to create insert data into the db
   //User.addUser(newUser, (err, user) =>{
   bcrypt.genSalt(10, (err, salt) => {
@@ -41,6 +42,7 @@ exports.postAuthenticate = (req, res) => {
   var username = req.body.username;
   var password = req.body.password;
   const query = {username: username}
+
   //load a user from database using username
   //User.getUserByUsername(username, (err, user) => {
   User.findOne(query, (err, user) => {
@@ -50,6 +52,7 @@ exports.postAuthenticate = (req, res) => {
     if(!user){
       return res.json({success: false, message: 'user not found'});
     }
+
     //Compare the password supplied in signIn form with
     //password of the user loaded from database
     bcrypt.compare(password, user.password, (err, isMatch) =>{
@@ -106,6 +109,7 @@ exports.postUpdateInfo = (req, res, next) => {
     if(err){
       console.log(err)
     }
+
     doc.firstname = updatedUserData.firstname;
     doc.lastname = updatedUserData.lastname;
     doc.language =updatedUserData.language;

@@ -4,7 +4,7 @@ import {ServiceModule} from './services/_services.module';
 import {GuardsModule} from './guards/_guards.module';
 
 const CORE_PROVIDERS = [
-  ...ServiceModule.forRoot().providers
+  ...ServiceModule.forRoot().providers,
 ];
 
 @NgModule({
