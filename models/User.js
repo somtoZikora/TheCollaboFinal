@@ -41,9 +41,9 @@ bcrypt.genSalt(10, (err, salt) =>{
 });
 }*/
 
-/*module.exports.getUserById = (id, callback) =>{
+module.exports.getUserById = (id, callback) =>{
   User.findById(id, callback);
-}*/
+}
 
 
 /*module.exports.getUserByUsername = (username, callback) => {
