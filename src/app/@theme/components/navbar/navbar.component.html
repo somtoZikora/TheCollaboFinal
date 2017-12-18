@@ -6,7 +6,7 @@
       </a>
     </div>
     <ul class="nav navbar-nav">
-      <li [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a routerLink="/home">Home</a></li>
+      <li [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a routerLink="/">Home</a></li>
       <li *ngIf = "_AuthenticationService.loggedIn() == false" [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a routerLink="/signup">Sign up</a></li>
       <li *ngIf = "_AuthenticationService.loggedIn() ==false" [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a routerLink="/login">Login</a></li>
       <li *ngIf = "_AuthenticationService.loggedIn()" ><a (click) = "onLogOutClick()" href="#">Logout</a></li>
@@ -14,17 +14,6 @@
       <li *ngIf = "_AuthenticationService.loggedIn()" [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a routerLink="/profile">Profile</a></li>
       <li [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a href="/#">Give Back</a></li>
       <li [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a routerLink="/create-group">Create Groups</a></li>
-      <li [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}" class="dropdown" dropdown> <!-- {1} -->
-        <a dropdownToggle role="button"> <!-- {2} -->
-          Dropdown <span class="caret"></span></a>
-        <ul *dropdownMenu class="dropdown-menu"> <!-- {3} -->
-          <li><a routerLink="/#"> Exams</a></li>
-          <li><a routerLink="/#">Chats</a></li>
-          <li><a routerLink="/#">Exercise</a></li>
-          <li role="separator" class="divider"></li>
-          <li><a routerLink="/#">Create Groups</a></li>
-        </ul>
-      </li>
       <li [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a routerLink="/contact">Contact Us</a></li>
     </ul>
   </div>
