@@ -20,9 +20,6 @@ import { ContactComponent } from './contact/contact.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { PagesRoutingModule } from './pages-routing.module';
 
 
@@ -39,9 +36,6 @@ import { PagesRoutingModule } from './pages-routing.module';
   imports: [
     CommonModule,
     FormsModule,
-    BsDropdownModule.forRoot(),
-    TooltipModule.forRoot(),
-    ModalModule.forRoot(),
     PagesRoutingModule,
     HttpClientModule,
     ThemeModule,
