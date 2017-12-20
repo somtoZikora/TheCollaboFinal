@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NbThemeModule} from '@nebular/theme';
 import { CoreModule } from './@core/core.module';
 import {ThemeModule} from './@theme/theme.module';
-
 import {FlashMessagesModule} from 'angular2-flash-messages';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 
 import {FlashMessagesService} from 'angular2-flash-messages';
@@ -25,10 +26,10 @@ import { CreateGroupModule } from './create-group/create-group.module';
     BrowserModule,
     CreateGroupModule,
     AppRoutingModule,
-    NbThemeModule.forRoot({name: 'Default'}),
     CoreModule.forRoot(),
     ThemeModule,
-    FlashMessagesModule
+    FlashMessagesModule,
+    BrowserAnimationsModule,
   ],
  providers: [FlashMessagesService],
   bootstrap: [AppComponent]
