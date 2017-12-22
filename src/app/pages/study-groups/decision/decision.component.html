@@ -1,0 +1,27 @@
+<div [hidden] = "isCancelClicked">
+<mat-list>
+
+  <h3 mat-subheader  [style.background]="'lightgreen'">
+    Select
+    <span class="example-spacer"></span>
+    <a class="cancel-icon" (click) = "onCancelClick('cancel')"><mat-icon mat-list-icon>cancel</mat-icon></a>
+  </h3>
+
+  <div class="hover">
+  <mat-list-item (click) = "onSelectDecision('showListOfStudyGroupComponent')">
+    <mat-icon mat-list-icon>list</mat-icon>
+    <h4 mat-line>List of study Groups</h4>
+  </mat-list-item>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="hover">
+  <mat-list-item (click) = "onSelectDecision('showCreateGroupComponent')">
+    <mat-icon mat-list-icon>group</mat-icon>
+    <h4 mat-line>Create study Groups</h4>
+  </mat-list-item>
+</div>
+
+</mat-list>
+</div>

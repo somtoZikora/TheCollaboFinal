@@ -1,0 +1,11 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+.cancel-icon{
+  cursor: pointer;
+}
+.hover :hover {
+  background-color: lightblue;
+  cursor: pointer;
+}
+
