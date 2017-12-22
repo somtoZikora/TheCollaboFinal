@@ -1,19 +1,29 @@
-<div class="container">
-  <div class="row text-center">
+ <div class="Logo text-center">
     <img src="assets/images/theme/components/auth/signin/collabo.png">
   </div>
-<form (ngSubmit) = "onSubmit()" #signinForm = "ngForm" >
-  <div class="form-group">
-    <label for="username">username</label>
-    <input type="text" class="form-control" id="username" placeholder="Enter Username"
-    [(ngModel)] ="username" name="username">
+
+<div class="centerDiv">
+  <h3>Login into TheCollabo </h3><br>
+  <span>or </span><a routerLink="/signup">Create an account</a><br><br>
+<mat-card>
+  <mat-card-header [style.background] = "'lightgreen'">
+    <mat-card-title>SignIn Form</mat-card-title>
+  </mat-card-header>
+
+  <div class="form-container">
+    <mat-form-field>
+      <input matInput placeholder="Username" [(ngModel)] ="username" name="username">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'"
+             [(ngModel)] = "password" name="password">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field>
+    <button mat-raised-button [style.background] = "'lightgreen'"
+    class="formbutton" (click)="onSubmit()">Login</button>
   </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" placeholder="Password"
-    [(ngModel)] = "password" name="password">
-  </div>
-  <button type="submit" class="btn btn-primary">Login</button>
-</form>
+
+</mat-card>
 </div>
 

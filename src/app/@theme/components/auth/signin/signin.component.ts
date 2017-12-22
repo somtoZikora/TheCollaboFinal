@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationService} from '../../../../@core/services/authentication.service';
+import {AuthenticationService} from '../../../../@core/services/authentication/authentication.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
+
 
 
 
@@ -11,11 +12,12 @@ import {Router} from '@angular/router';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
+  hide = true;
   username: string;
   password: string;
   constructor(private _AuthenticationService: AuthenticationService,
               private _Router: Router,
-              private _FlashMessageService: FlashMessagesService) { }
+              private _FlashMessageService: FlashMessagesService) {}
 
   ngOnInit() {
   }
