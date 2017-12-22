@@ -1,7 +1,29 @@
-<div *ngIf = "user">
-  <h2 class="page-header"> {{user.username}} </h2>
-    <ul class="list-group">
-      <li class="list-group-item">USername: {{user.username}} </li>
-      <li class="list-group-item">Email: {{user.email}} </li>
-    </ul>
+<div>
+  <mat-list>
+
+    <h3 mat-subheader  [style.background]="'lightgreen'">
+      Profile
+      <span class="example-spacer"></span>
+      <a class="hover" (click) = "onCancelClick()">
+        <mat-icon mat-list-icon >cancel</mat-icon>
+      </a>
+    </h3>
+
+    <div class="hover">
+      <mat-list-item >
+        <mat-icon mat-list-icon >list</mat-icon>
+        <h4 mat-line>Your Information</h4>
+      </mat-list-item>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="hover">
+      <mat-list-item (click)="logOut()">>
+        <mat-icon mat-list-icon>list</mat-icon>
+        <h4 mat-line >Logout</h4>
+      </mat-list-item>
+    </div>
+
+  </mat-list>
 </div>
