@@ -1,91 +1,39 @@
-<div class="jumbotron jumbotron-sm">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12 col-lg-12">
-        <h1 class="h1">
-          Sign up <small>- Provide your information</small></h1>
-      </div>
-    </div>
-  </div>
+
+<div class="Logo text-center">
+  <img src="assets/images/theme/components/auth/signin/collabo.png">
 </div>
-<div class="container">
-  <div class="row">
-    <div [hidden]="signup" class="col-md-8">
-      <div class="well well-sm">
-        <form (ngSubmit) = "onSubmit()" #signupForm = "ngForm">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="username">
-                  Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter username" required="required"
-                [(ngModel)] = "username" name="username"/>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="email">
-                  Email Address</label>
-                <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
-                                </span>
-                  <input type="email" class="form-control" id="email" placeholder="Enter email" required="required"
-                  [(ngModel)]="email" name="email"/></div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="password">
-                  Password</label>
-                <input type="text" class="form-control" id="password" placeholder="Enter password" required="required"
-                [(ngModel)] = "password" name="password"/>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <button type="submit" class="btn btn-primary pull-right" id="btnContactUs">
-                Send Message</button>
-            </div>
-          </div>
-        </form>
-      </div>
+
+<div class="centerDiv">
+
+  <h3>Signup to TheCollabo </h3><br>
+  <span>or </span><a routerLink="/login">Login</a><br><br>
+  <mat-card>
+    <mat-card-header [style.background] = "'lightgreen'">
+      <mat-card-title>SignUp  Form</mat-card-title>
+    </mat-card-header>
+
+    <div class="form-container">
+      <mat-form-field>
+        <input matInput placeholder="Username" [(ngModel)] ="username" name="username">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'"
+               [(ngModel)] = "password" name="password">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Enter your email" [formControl]="email1" required
+               [(ngModel)]="email" name="email">
+        <mat-error *ngIf="email1.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button [style.background] = "'lightgreen'"
+              class="formbutton" (click)="onSubmit()">Signup</button>
     </div>
 
-    <div [hidden]="!signup" class="col-md-8">
-      <div>
-        <h2>You submitted the following:</h2>
-        <div class="row">
-          <div class="col-xs-3">Name</div>
-          <div class="col-xs-9  pull-left">{{ name }}</div>
-        </div>
-        <div class="row">
-          <div class="col-xs-3">subject</div>
-          <div class="col-xs-9 pull-left">{{ subject }}</div>
-        </div>
-        <div class="row">
-          <div class="col-xs-3">message</div>
-          <div class="col-xs-9 pull-left">{{message }}</div>
-        </div>
-        <br>
-        <button class="btn btn-primary" (click)="signup=false">Back</button>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <form>
-        <legend><span class="glyphicon glyphicon-globe"></span> Our office</legend>
-        <address>
-          <strong>Twitter, Inc.</strong><br>
-          795 Folsom Ave, Suite 600<br>
-          San Francisco, CA 94107<br>
-          <abbr title="Phone">
-            P:</abbr>
-          (123) 456-7890
-        </address>
-        <address>
-          <strong>Full Name</strong><br>
-          <a href="mailto:#">first.last@example.com</a>
-        </address>
-      </form>
-    </div>
-  </div>
+  </mat-card>
 </div>
+
+
