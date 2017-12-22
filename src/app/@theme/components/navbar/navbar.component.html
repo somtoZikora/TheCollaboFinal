@@ -1,20 +1,23 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/home">
-        <img src="assets/images/app/logo.JPG" class="logo">
-      </a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a routerLink="/">Home</a></li>
-      <li *ngIf = "_AuthenticationService.loggedIn() == false" [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a routerLink="/signup">Sign up</a></li>
-      <li *ngIf = "_AuthenticationService.loggedIn() ==false" [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a routerLink="/login">Login</a></li>
-      <li *ngIf = "_AuthenticationService.loggedIn()" ><a (click) = "onLogOutClick()" href="#">Logout</a></li>
-      <li *ngIf = "_AuthenticationService.loggedIn()" [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a routerLink="/dashboard">dashboard</a></li>
-      <li *ngIf = "_AuthenticationService.loggedIn()" [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a routerLink="/profile">Profile</a></li>
-      <li [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a href="/#">Give Back</a></li>
-      <li [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a routerLink="/create-group">Create Groups</a></li>
-      <li [routerLinkActive] ="['active']" [routerLinkActiveOptions] ="{exact: true}"><a routerLink="/contact">Contact Us</a></li>
-    </ul>
-  </div>
-</nav>
+<mat-toolbar [style.background]="'lightgreen'" class="row">
+  <mat-toolbar-row>
+     <span matTooltip="Create a group">
+    <button mat-icon-button color="primary" >
+    <mat-icon aria-label="Create Group" >group</mat-icon>
+    </button>
+      </span>
+
+    <span class="example-spacer"></span>
+
+    <span matTooltip="Information">
+    <button mat-icon-button color="primary" (click)="onClickProfileIcon('Information')" >
+    <mat-icon aria-label="Create Group" >info</mat-icon>
+    </button>
+      </span>
+
+    <span matTooltip="Profile">
+    <button mat-icon-button color="primary" (click)="onClickProfileIcon('Profile')" >
+    <mat-icon aria-label="Create Group" >person</mat-icon>
+    </button>
+      </span>
+  </mat-toolbar-row>
+</mat-toolbar>
