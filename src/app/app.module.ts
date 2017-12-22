@@ -15,7 +15,7 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 import { AppComponent } from './app.component';
 
 import { AppRoutingModule } from './/app-routing.module';
-import { CreateGroupModule } from './create-group/create-group.module';
+
 
 
   @NgModule({
@@ -24,7 +24,6 @@ import { CreateGroupModule } from './create-group/create-group.module';
   ],
   imports: [
     BrowserModule,
-    CreateGroupModule,
     AppRoutingModule,
     CoreModule.forRoot(),
     ThemeModule,

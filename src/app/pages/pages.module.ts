@@ -5,13 +5,17 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import {StudygroupModule} from './study-groups/study-groups.module'
 
 import {ThemeModule} from './../@theme/theme.module';
 
 
 
 import {PagesComponent} from './pages.component';
-
+import {MatGridListModule,
+        MatListModule,
+        MatCardModule,
+        MatDialogModule} from '@angular/material/';
 
 
 
@@ -39,6 +43,11 @@ import { PagesRoutingModule } from './pages-routing.module';
     PagesRoutingModule,
     HttpClientModule,
     ThemeModule,
+    StudygroupModule,
+    MatGridListModule,
+    MatListModule,
+    MatCardModule,
+    MatDialogModule
   ],
   providers: [],
 
