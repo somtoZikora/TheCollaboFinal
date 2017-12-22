@@ -1,0 +1,11 @@
+<mat-list>
+  <h3 mat-subheader  [style.background]="'lightgreen'">
+    List of Groups
+    <span class="example-spacer"></span>
+    <a class="cancel-icon" (click) = "onCancelClick('cancel')"><mat-icon mat-list-icon>cancel</mat-icon></a>
+  </h3>
+  <mat-list-item role="listitem" *ngFor = "let studygroup of listOfStudyGroups">
+    <mat-icon mat-list-icon>list</mat-icon>
+    <h4 mat-line>{{studygroup.name}}</h4>
+  </mat-list-item>
+</mat-list>
