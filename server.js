@@ -23,7 +23,8 @@ const dotenv = require('dotenv').config();
  * controllers(route handlers)
  */
 const contactController = require('./controllers/contact');
-const userController = require('./controllers/user')
+const userController = require('./controllers/user');
+const studyGroupController = require('./controllers/studygroups');
 
 var port = 3000;
 var app = express();
@@ -63,6 +64,8 @@ app.post('/user/contact', contactController.postContact);
 //unUsed
 app.post('/user/signin', userController.postSignIn);
 
+//api call
+app.get('/api/study-group/list-of-study-groups',passport.authenticate('jwt', {session: false}), studyGroupController.getListOfStudyGroups);
 
 /* Send all other requests to angular app */
 app.get('*', (req, res)=>{
