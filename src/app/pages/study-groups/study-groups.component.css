@@ -1,3 +1,16 @@
-.col-xs-3{
-  margin-top: 2%;
+
+.width-right-flow{
+  width: 250px;
+  float: right;
+  margin-right: 1%;
+  margin-left: 1%;
 }
+
+.width-left-flow{
+  width: 250px;
+  float: left;
+  margin-right: 1%;
+  margin-left: 1%;
+}
+
+

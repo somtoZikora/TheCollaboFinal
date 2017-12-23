@@ -4,4 +4,6 @@
 .cancel-icon{
   cursor: pointer;
 }
-
+h6{
+  font-weight: bold;
+}

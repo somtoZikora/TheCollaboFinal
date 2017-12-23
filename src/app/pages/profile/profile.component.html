@@ -1,27 +1,29 @@
 <div>
   <mat-list>
 
-    <h3 mat-subheader  [style.background]="'lightgreen'">
-      Profile
+    <div mat-subheader  [style.background]="'lightgreen'">
+      <h6>Profile</h6>
       <span class="example-spacer"></span>
       <a class="hover" (click) = "onCancelClick()">
         <mat-icon mat-list-icon >cancel</mat-icon>
       </a>
-    </h3>
+    </div>
 
     <div class="hover">
       <mat-list-item >
         <mat-icon mat-list-icon >list</mat-icon>
-        <h4 mat-line>Your Information</h4>
+        <div mat-line><h6>Your Information</h6>
+        </div>
       </mat-list-item>
     </div>
 
     <mat-divider></mat-divider>
 
     <div class="hover">
-      <mat-list-item (click)="logOut()">>
+      <mat-list-item (click)="logOut()">
         <mat-icon mat-list-icon>list</mat-icon>
-        <h4 mat-line >Logout</h4>
+        <div mat-line ><h6>Logout </h6>
+        </div>
       </mat-list-item>
     </div>
 
