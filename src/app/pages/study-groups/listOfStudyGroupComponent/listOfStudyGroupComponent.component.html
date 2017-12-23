@@ -1,4 +1,4 @@
-<mat-list>
+<mat-list *ngIf = "(this.listOfStudyGroups !== 'undefined' && this.listOfStudyGroups.length > 0)">
   <h3 mat-subheader  [style.background]="'lightgreen'">
     List of Groups
     <span class="example-spacer"></span>
@@ -7,5 +7,16 @@
   <mat-list-item role="listitem" *ngFor = "let studygroup of listOfStudyGroups">
     <mat-icon mat-list-icon>list</mat-icon>
     <h4 mat-line>{{studygroup.name}}</h4>
+  </mat-list-item>
+</mat-list>
+
+<mat-list >
+  <h3 mat-subheader  [style.background]="'lightgreen'">
+    List of Groups
+    <span class="example-spacer"></span>
+    <a class="cancel-icon" (click) = "onCancelClick('cancel')"><mat-icon mat-list-icon>cancel</mat-icon></a>
+  </h3>
+  <mat-list-item role="listitem">
+    <h4 mat-line [style.color] = "'red'">Error loading list of Groups from database</h4>
   </mat-list-item>
 </mat-list>
