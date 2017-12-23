@@ -1,14 +1,25 @@
-<div *ngIf="showShowSelectComponent " class="col-xs-3" (click)="selectStudyGroup('hideShowSelectComponent')">
+
+
+<div *ngIf="showShowSelectComponent " class="col-xs-3" (click)="selectStudyGroup('hideShowSelectComponent')"
+     ngDraggable>
   <app-show-select></app-show-select>
 </div>
 
-<div *ngIf="showDecisionCOmponent" class="col-xs-3">
+<div *ngIf="showDecisionCOmponent" class="col-xs-3" ngDraggable>
 <app-decision (messageEvent)="executeOnReceiveEMittedMessageFromChild($event)"></app-decision>
 </div>
 
-<div *ngIf="showListOfStudyGroupComponent" class="col-xs-3">
-  <app-list-of-study-group (messageEvent)="executeOnReceiveEMittedMessageFromChild($event)"></app-list-of-study-group>
+<div *ngIf="showListOfStudyGroupComponent" class="col-xs-3" ngDraggable >
+  <app-list-of-study-group (messageEvent)="executeOnReceiveEMittedMessageFromChild($event)"
+                           [listOfStudyGroups]="listOfStudyGroups"
+                           [listOfStudyGroupError] = "listOfStudyGroupError"></app-list-of-study-group>
 </div>
+
+<div *ngIf="showProfileComponent" class="col-xs-offset-9">
+  <app-profile></app-profile>
+</div>
+
+
 
 
 

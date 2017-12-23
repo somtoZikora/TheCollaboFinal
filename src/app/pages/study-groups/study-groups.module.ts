@@ -7,11 +7,12 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 
 import {ThemeModule} from './../../@theme/theme.module';
+import { AngularDraggableModule } from 'angular2-draggable';
 
 import {ShowSelectComponent} from './showSelect/showSelect.component';
 import {DecisionComponent} from './decision/decision.component';
 import {ListOfStudyGroupComponent} from './listOfStudyGroupComponent/listOfStudyGroupComponent.component';
-//import {ProfileComponent} from './Profile/profile.component'
+import { ProfileComponent } from '../profile/profile.component';
 
 import {StudygroupsComponent} from './study-groups.component';
 import {MatGridListModule,
@@ -25,7 +26,7 @@ import {MatGridListModule,
     ShowSelectComponent,
     DecisionComponent,
     ListOfStudyGroupComponent,
-   // ProfileComponent
+    ProfileComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +36,8 @@ import {MatGridListModule,
     MatGridListModule,
     MatCardModule,
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
+    AngularDraggableModule
   ],
   exports: [StudygroupsComponent],
   providers: [],
