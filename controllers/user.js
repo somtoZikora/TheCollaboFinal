@@ -9,18 +9,15 @@ var bcrypt = require('bcryptjs');
 
 // Used by signUpComponent
 exports.postSignup = (req, res,next) => {
-  if (req.body.email &&
-    req.body.username &&
-    req.body.password) {
+
     var newUser = new User({
       email: req.body.email,
       username: req.body.username,
       password: req.body.password
     });
-  }
+
 
   // use model to create insert data into the db
-  //User.addUser(newUser, (err, user) =>{
   bcrypt.genSalt(10, (err, salt) => {
     if (err) throw err
     bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -46,7 +43,7 @@ exports.postAuthenticate = (req, res) => {
   //load a user from database using username
   //User.getUserByUsername(username, (err, user) => {
   User.findOne(query, (err, user) => {
-    if(err){ ;
+    if(err){
       throw error;
     }
     if(!user){
@@ -80,7 +77,6 @@ exports.postAuthenticate = (req, res) => {
 //Used by ProfileComponent
 exports.getMe = (req, res) => {
   //User.findOne({token: req.token}, (err, user) => {
-  console.log('I am aI am here')
   /*if(err){
    res.json({
    type: false,
@@ -93,6 +89,8 @@ exports.getMe = (req, res) => {
   // }
   // }   )
 }
+
+// ********************************* would take out the components*********************************************************
 
 //Used by Dashboard Component
 exports.postUpdateInfo = (req, res, next) => {
@@ -156,3 +154,5 @@ exports.postSignIn = (req, res) => {
     }
   })
 }
+
+// ***************************************************************************************************************
