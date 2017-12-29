@@ -26,6 +26,7 @@
     "@nebular/auth": "^2.0.0-rc.3",
     "@nebular/theme": "^2.0.0-rc.3",
     "angular-2-local-storage": "^1.0.1",
+    "angular2-draggable": "^1.1.0-beta.0",
     "angular2-flash-messages": "^2.0.4",
     "angular2-jwt": "^0.2.3",
     "bcryptjs": "^2.4.3",
@@ -47,6 +48,7 @@
     "passport-jwt": "^3.0.1",
     "path": "^0.12.7",
     "rxjs": "^5.5.2",
+    "socket.io": "^2.0.4",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
