@@ -6,13 +6,11 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 const User = require('../models/User');
 
 exports.strategy = (passport) => {
-  console.log('i am here ere hree')
   var opts = {};
   opts.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
   opts.secretOrKey = process.env.JWT_SECRET
   opts.authScheme= 'bearer'
   passport.use(new JwtStrategy(opts,function (jwt_payload, done) {
-    console.log(jwt_payload)
     User.getUserById(jwt_payload.user._id, (err, user) => {
       if(err){
         return done(err, false);
