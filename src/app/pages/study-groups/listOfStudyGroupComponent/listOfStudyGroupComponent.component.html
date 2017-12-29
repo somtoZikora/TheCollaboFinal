@@ -12,7 +12,7 @@
 </mat-list>
 
 
-<mat-list>
+<mat-list *ngIf = "(this.listOfStudyGroups == 'undefined' && this.listOfStudyGroups.length == 0)">
   <div mat-subheader  [style.background]="'lightgreen'">
   <h6> List of Groups</h6>
     <span class="example-spacer"></span>

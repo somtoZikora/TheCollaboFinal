@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {StudyGroupService} from '../../@core/services/study-group/study-group.service';
 import {ProfileService} from '../../@core/services/profile/profile.service';
-
-
+import {SocketGroupService} from '../../@core/services/socket/socket.service';
 @Component({
   selector: 'app-study-groups',
   templateUrl: './study-groups.component.html',
@@ -10,7 +9,13 @@ import {ProfileService} from '../../@core/services/profile/profile.service';
 })
 export class StudygroupsComponent implements OnInit  {
 
-  // data variables
+  // ###################################################
+  // message variable for chat
+  messages: Array<any>
+  messageText: string;
+  // ###################################################
+
+  // data variabless
   listOfStudyGroups: Array<any> = []
   listOfStudyGroupError: string
 
@@ -24,10 +29,20 @@ export class StudygroupsComponent implements OnInit  {
 
   // constructor
   constructor(private _StudyGroupService: StudyGroupService,
-              private _ProfileService: ProfileService) {}
+              private _ProfileService: ProfileService,
+              private _SocketGroupService: SocketGroupService
+   ) {}
 
   // oninit hook
   ngOnInit() {
+// #############################################################
+    this._SocketGroupService.on('mesage-received', (msg: any) => {
+      this.messages.push(msg);
+      console.log(msg);
+      console.log(this.messages);
+    } )
+
+    // ###########################################################
 
     // handle serveice for listOfStudyGroupComponet
     this._StudyGroupService.getListOfStudyGroups().subscribe(data => {
@@ -48,6 +63,18 @@ export class StudygroupsComponent implements OnInit  {
       });
 
   }
+
+  // ##################################################################
+
+  sedMessage() {
+    const message = {
+      text: this.messageText
+    };
+    this._SocketGroupService.emit('send-message', message);
+    this.messageText = '';
+  }
+  // ######################################################################
+
 
   // fuctions
   executeOnReceiveEMittedMessageFromChild($event) {
