@@ -10,13 +10,15 @@ import {AuthenticationService} from './authentication/authentication.service';
 import {ValidateService} from './validate/validate.service';
 import {StudyGroupService} from './study-group/study-group.service';
 import {ProfileService} from './profile/profile.service';
+import {SocketGroupService} from './socket/socket.service';
 
 const SERVICES = [
   ContactUsService,
   AuthenticationService,
   ValidateService,
   StudyGroupService,
-  ProfileService
+  ProfileService,
+  SocketGroupService
 ]
 
 @NgModule({
