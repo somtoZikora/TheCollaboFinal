@@ -2,9 +2,13 @@
  * Created by opaluwa john on 11/22/2017.
  */
 var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io =require('socket.io').listen(server);
+
 var path = require('path');
 var bodyParser = require('body-parser');
-var http = require('http');
+
 const mongoose = require('mongoose')
 const expressValidator = require('express-validator');
 const passport = require('passport');
@@ -27,7 +31,7 @@ const userController = require('./controllers/user');
 const studyGroupController = require('./controllers/studygroups');
 
 var port = 3000;
-var app = express();
+
 
 /*connect to mongo db*/
 mongoose.Promise = global.Promise
@@ -64,14 +68,32 @@ app.post('/user/contact', contactController.postContact);
 //unUsed
 app.post('/user/signin', userController.postSignIn);
 
-//api call
+// ##############################################################################################################
+// api-studygroup
 app.get('/api/study-group/list-of-study-groups',passport.authenticate('jwt', {session: false}), studyGroupController.getListOfStudyGroups);
-
+app.post('/api/study-group/create-study-group', studyGroupController.postCreateStudyGroup);
+app.post('/api/study-group/sign-up-with-group-name', studyGroupController.signUpWithGroupName);
+app.post('/api/study-group/get-group-information', studyGroupController.getGroupAllInformation);
+app.post('/api/study-group/get-summary-group-information', studyGroupController.getSummaryOfGroupInformation);
+app.post('/api/study-group/post-message', studyGroupController.sendMessageToGroupComponent);
+// ##############################################################################################################
 /* Send all other requests to angular app */
 app.get('*', (req, res)=>{
   res.sendFile(path.join(__dirname, 'dist/index.html' ))
 })
 
-app.listen(port, function(){
+server.listen(port)
+io.sockets.on('connection', (socket)=>{
+  console.log('new Connection made')
+
+  socket.on('send-message', (data)=>{
+    //console.log(data.text);
+
+    io.socket.emit('message-received', data)
+  })
+
+})
+
+/*app.listen(port, function(){
   console.log('Server started on port '+port);
-});
+});*/
