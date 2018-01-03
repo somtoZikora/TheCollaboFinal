@@ -4,7 +4,7 @@
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
-var io =require('socket.io').listen(server);
+var io =require('socket.io').listen(server)
 
 var path = require('path');
 var bodyParser = require('body-parser');
@@ -17,6 +17,9 @@ var morgan = require('morgan');
 var jwt = require('jsonwebtoken');
 var passportCofig = require('./config/passport');
 var cors = require('cors');
+
+var multiparty = require('connect-multiparty')();
+
 
 /**
  * load enviroment variables into process
@@ -36,6 +39,7 @@ var port = 3000;
 /*connect to mongo db*/
 mongoose.Promise = global.Promise
 mongoose.connect(process.env.MONGODB_URI)
+
 mongoose.connection.on('error', (err)=>{
   console.error(err);
   console.log('%s MongoDB connection error. Please make sure MongoDB is running')
@@ -75,7 +79,13 @@ app.post('/api/study-group/create-study-group', studyGroupController.postCreateS
 app.post('/api/study-group/sign-up-with-group-name', studyGroupController.signUpWithGroupName);
 app.post('/api/study-group/get-group-information', studyGroupController.getGroupAllInformation);
 app.post('/api/study-group/get-summary-group-information', studyGroupController.getSummaryOfGroupInformation);
-app.post('/api/study-group/post-message', studyGroupController.sendMessageToGroupComponent);
+app.post('/api/study-group/post-message', studyGroupController.postSendMessageToGroupComponent);
+app.post('/api/study-group/get-message', studyGroupController.getMessageToGroupComponent);
+app.post('/api/study-group/post-friend-request-to-group', studyGroupController.postFriendRequestToGroupComponent);
+app.post('/api/study-group/post-confirm-friend-request-to-group', studyGroupController.postConfirmFriendRequestToGroupComponent);
+
+app.post('/api/study-group/post-file-upload-to-group',multiparty, studyGroupController.postFileToGroupComponent);
+app.get('/api/study-group/get-file-upload-to-group/:imgname', studyGroupController.readFileToGroupComponent);
 // ##############################################################################################################
 /* Send all other requests to angular app */
 app.get('*', (req, res)=>{
@@ -88,7 +98,6 @@ io.sockets.on('connection', (socket)=>{
 
   socket.on('send-message', (data)=>{
     //console.log(data.text);
-
     io.socket.emit('message-received', data)
   })
 
