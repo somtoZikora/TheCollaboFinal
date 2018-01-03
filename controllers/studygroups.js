@@ -9,6 +9,12 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 
+//************************************************************************************************
+var mongoose = require('mongoose');
+const fs = require('fs');
+var Gridfs = require("gridfs-stream");
+//*********************************************************************************************
+
 // used in ListOfStudyGroupComponent
 exports.getListOfStudyGroups = (req, res) =>{
   listOfStudyGroups.find({}, (err, studygroup) =>{
@@ -210,7 +216,7 @@ exports.getSummaryOfGroupInformation = (req, res) => {
 }
 
 // used in sendMessageToGroupComponent
-exports.sendMessageToGroupComponent = (req, res)=> {
+exports.postSendMessageToGroupComponent = (req, res)=> {
 
   var query = {groupName: req.body.groupName}
   listOfStudyGroups.findOne(query, (err, studyGroup) => {
@@ -228,6 +234,157 @@ exports.sendMessageToGroupComponent = (req, res)=> {
 
 }
 
+// used in sendMessageToGroupComponent
+exports.getMessageToGroupComponent = (req, res) => {
+  var query = {groupName: req.body.groupName}
+listOfStudyGroups.findOne(query, (err, studyGroup) => {
+  if (err) throw err
+  if(!studygroup) return res.json({success: false, message: ' You dont belong to any group'});
+  res.json({
+    success: true,
+    messages: studygroup.messages
+  })
+})
+}
+
+// used in postFriendRequestToGroupComponent
+exports.postFriendRequestToGroupComponent = (req, res)=> {
+
+  var query = {groupName: req.body.groupName}
+  listOfStudyGroups.findOne(query, (err, studyGroup) => {
+    if(err) throw err
+    if(!studyGroup) return res.json({success: false, message: 'Error occured while trying to fetch user group'})
+
+    User.findOne({username:req.body.username}, (err, user) => {
+      if (err) console.log(err)
+      if (!user) return res.json({success:false, message: 'Error occured'})
+
+          //add User Id to group and save(referncing)
+          studyGroup.intendedFriends.push(user._id);
+          studyGroup.save((err, group) => {
+            if (err) throw err;
+            if(!group) return res.json({success:false, message: 'Error trying to add user to group'})
+            listOfStudyGroups.findOne(query).populate('intendedFriends').exec(function (err, story) {
+                if (err) return handleError(err);
+              res.json({success: true,
+                message: 'study group created and User Id added to Study Group'} )
+              }
+            )
+          })
+    })
+  })
+}
+
+
+// used in postConfirmFriendRequestToGroupComponent
+exports.postConfirmFriendRequestToGroupComponent = (req, res) => {
+  var query = {groupName: req.body.groupName}
+listOfStudyGroups.findOne(query, (err, studyGroup) => {
+  if (err) throw err
+  if(!studyGroup) return res.json({success: false, message: ' You dont belong to any group'});
+
+  User.findOne({username:req.body.intendedGroupMember}, (err, user) => {
+    if (err) console.log(err)
+    if (!user) return res.json({success:false, message: 'Error occured'})
+
+        //Remove user from intended group
+        var index = studyGroup.intendedFriends.indexOf(user._id);
+        if (index > -1) {
+          studyGroup.intendedFriends.splice(index, 1);
+          studyGroup.groupMembers.push(user._id);
+          studyGroup.save((err, group) => {
+            if (err) throw err;
+            if(!group) return res.json({success:false, message: 'Error trying to add user to group'})
+            listOfStudyGroups.findOne(query).populate('groupMembers').exec(function (err, story) {
+                if (err) return handleError(err);
+              res.json({success: true,
+                message: 'user added to group'} )
+              }
+            )
+          })
+          }
+  })
+})
+}
+
+
+//***********************************************************************************************************************************
+
+
+
+    // used in postFileToGroupComponent
+    exports.postFileToGroupComponent = (req, res) => {
+      var db = mongoose.connection.db;
+      var mongoDriver = mongoose.mongo;
+      var gfs = new Gridfs(db, mongoDriver);
+
+      console.log(req.files.file.name);
+
+      var writestream = gfs.createWriteStream({
+        filename: req.files.file.name,
+        mode: 'w',
+        content_type: req.files.file.mimetype,
+        //metadata: req.body
+   });
+
+
+    fs.createReadStream(req.files.file.path).pipe(writestream);
+      writestream.on('close', function(file) {
+        fs.unlink(req.files.file.path, function(err) {
+          // handle error
+          console.log('success!')
+          res.json({success: true, message:'file uploaded'})
+        });
+      });
+
+    }
+
+
+    // used in readFileToGroupComponent
+    exports.readFileToGroupComponent = (req, res) => {
+      var db = mongoose.connection.db;
+      var mongoDriver = mongoose.mongo;
+      var gfs = new Gridfs(db, mongoDriver);
+
+      let imgname = req.params.imgname;
+        gfs.files.find({
+            filename: imgname
+        }).toArray((err, files) => {
+
+            if (files.length === 0) {
+                return res.status(404).send({
+                    message: 'File not found'
+                });
+            }
+            let data = [];
+            let readstream = gfs.createReadStream({
+                filename: files[0].filename
+            });
+
+            readstream.on('data', (chunk) => {
+                data.push(chunk);
+            });
+
+            readstream.on('end', () => {
+                data = Buffer.concat(data);
+                // let img = 'data:image/png;base64,' + Buffer(data).toString('base64');  // to enable base64
+                res.end(data);
+            });
+
+            readstream.on('error', (err) => {
+              // if theres an error, respond with a status of 500
+              // responds should be sent, otherwise the users will be kept waiting
+              // until Connection Time out
+                res.status(500).send(err);
+                console.log('An error occurred!', err);
+            });
+        });
+    }
+
+
+
+
+//***********************************************************************************************************************************
+
 
 // ##############################################################################################
-
