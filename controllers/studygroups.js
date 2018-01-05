@@ -15,6 +15,46 @@ const fs = require('fs');
 var Gridfs = require("gridfs-stream");
 //*********************************************************************************************
 
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+var path = require('path');
+var multer = require('multer');
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// set storage engine
+const storage = multer.diskStorage({
+  destination: './uploads/',
+  filename: function(req, file,  cb){
+    cb(null, req.body.groupName + '-' + file.originalname + '-' +path.extname(file.originalname))
+  }
+})
+
+//init storage
+var upload = multer({
+  storage: storage,
+  limits: {fileSize: 1000000},
+  fileFilter: function(req, file, cb){
+    checkFileType(file, cb);
+  }
+}).single('file')
+
+// check file type
+function checkFileType(file, cb){
+  // allowed extension
+  const filetypes = /jpeg|jpg|png|gif|pdf/
+// check extension
+const extname = filetypes.test(path.extname(file.originalname).toLowerCase())
+//check mimetype
+const mimetype = filetypes.test(file.mimetype)
+if(mimetype && extname){
+  return cb(null, true);
+}else {
+  cb('Error: Images and pdf only')
+}
+}
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
 // used in ListOfStudyGroupComponent
 exports.getListOfStudyGroups = (req, res) =>{
   listOfStudyGroups.find({}, (err, studygroup) =>{
@@ -313,7 +353,7 @@ listOfStudyGroups.findOne(query, (err, studyGroup) => {
 
 
     // used in postFileToGroupComponent
-    exports.postFileToGroupComponent = (req, res) => {
+  /*  exports.postFileToGroupComponent = (req, res) => {
       var db = mongoose.connection.db;
       var mongoDriver = mongoose.mongo;
       var gfs = new Gridfs(db, mongoDriver);
@@ -382,9 +422,126 @@ listOfStudyGroups.findOne(query, (err, studyGroup) => {
     }
 
 
+// used in the updateFileComponent
+exports.postUpdateFileComponent = (req, res) => {
+  var db = mongoose.connection.db;
+  var mongoDriver = mongoose.mongo;
+  var gfs = new Gridfs(db, mongoDriver);
+
+console.log(req.files.file.path);
+
+  gfs.remove({
+    filename: req.files.file.name
+    }, function (err) {
+    if (err) return handleError(err);
+  });
+
+  var writestream = gfs.createWriteStream({
+    filename:  req.files.file.name,
+    mode: 'w',
+    content_type: req.files.file.mimetype,
+    groupName: 'My Group'
+    //metadata: req.body
+});
 
 
+fs.createReadStream(req.files.file.path).pipe(writestream);
+  writestream.on('close', function(file) {
+    fs.unlink(req.files.file.path, function(err) {
+      // handle error
+      console.log('success!')
+      res.json({success: true, message:'file uploaded'})
+    });
+  });
+
+
+}*/
 //***********************************************************************************************************************************
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+exports.postFileToGroupComponent = (req, res) => {
+  upload(req, res, (err) => {
+    if(err){
+      res.json({success: false, message: err})
+    }else {
+      if(req.file == undefined) return res.json({success: false, message: 'error no file selected'})
+      // console.log("this is the group name" + req.body.groupName)
+      listOfStudyGroups.findOne({groupName:req.body.groupName}, (err, group) =>{
+        if (err) throw error
+        if(!group) return res.json({success:false, message: 'failed to add file to the group'})
+        group.dashboard.pastExams.push({name:req.file.filename,
+        solved:true,
+        fileURL: req.file.path})
+        group.save((err,data) =>{
+          if (err) throw err
+           res.json({success:true, message: 'file added to user group'})
+        })
+      })
+    }
+  })
+}
+
+
+
+
+exports.readFileToGroupComponent = (req, res, next) => {
+
+   var options = {
+      root: './uploads/',
+      dotfiles: 'deny',
+      headers: {
+          'x-timestamp': Date.now(),
+          'x-sent': true
+      }
+    };
+
+      var fileName = req.params.fileName;
+
+     listOfStudyGroups.findOne({groupName: req.body.groupName}, (err, group) => {
+        if(err) throw err
+        if(!group) return res.json({success:false, message:'please ensure you belong to a group'})
+
+       group.dashboard.pastExams.forEach((exams)=>{
+          if(exams.name == fileName){
+            res.sendFile(fileName, options, function (err) {
+              if (err) {
+                next(err);
+              } else {
+                console.log('Sent:', fileName);
+              }
+            });
+          }
+        })
+      })
+
+}
+
+exports.postUpdateFileComponent = (req, res) => {
+
+  upload(req, res, (err) => {
+    if(err){
+      res.json({success: false, message: err})
+    }else {
+      if(req.file == undefined) return res.json({success: false, message: 'error no file selected'})
+      // console.log("this is the group name" + req.body.groupName)
+      listOfStudyGroups.findOne({groupName:req.body.groupName}, (err, group) =>{
+        if (err) throw error
+        if(!group) return res.json({success:false, message: 'failed to add file to the group'})
+        group.dashboard.pastExams.push({name:req.file.filename,
+        solved:true,
+        fileURL: req.file.path})
+        group.save((err,data) =>{
+          if (err) throw err
+           res.json({success:true, message: 'file added to user group'})
+        })
+      })
+    }
+  })
+
+}
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 // ##############################################################################################
