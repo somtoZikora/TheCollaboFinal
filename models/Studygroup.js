@@ -28,16 +28,16 @@ var StudyGroupSchema = mongoose.Schema({
     ref: 'User'}],
 
   dashboard:{
-    pastExams:{
+    pastExams:[{
       name: String,
       solved: Boolean,
       fileURL: String
-    },
-    assignments:{
+    }],
+    assignments:[{
       name: String,
       solved: Boolean,
       fileURL: String
-    }
+    }]
   }
 });
 const  StudyGroup = module.exports =mongoose.model('StudyGroup', StudyGroupSchema);
