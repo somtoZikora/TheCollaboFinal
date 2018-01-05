@@ -85,7 +85,9 @@ app.post('/api/study-group/post-friend-request-to-group', studyGroupController.p
 app.post('/api/study-group/post-confirm-friend-request-to-group', studyGroupController.postConfirmFriendRequestToGroupComponent);
 
 app.post('/api/study-group/post-file-upload-to-group',multiparty, studyGroupController.postFileToGroupComponent);
-app.get('/api/study-group/get-file-upload-to-group/:imgname', studyGroupController.readFileToGroupComponent);
+app.get('/api/study-group/get-file-upload-to-group/:fileName', studyGroupController.readFileToGroupComponent);
+app.post('/api/study-group/post-file-update-to-group', studyGroupController.postUpdateFileComponent);
+
 // ##############################################################################################################
 /* Send all other requests to angular app */
 app.get('*', (req, res)=>{
