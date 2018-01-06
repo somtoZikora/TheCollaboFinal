@@ -4,15 +4,16 @@
     <span class="example-spacer"></span>
     <a class="cancel-icon" (click) = "onCancelClick('cancel')"><mat-icon mat-list-icon>cancel</mat-icon></a>
   </div>
-  <mat-list-item role="listitem" *ngFor = "let studygroup of listOfStudyGroups">
+  <div class="hover" *ngFor = "let studygroup of listOfStudyGroups">
+  <mat-list-item class="hover" role="listitem" (click) = "onSelectGroup(studygroup)">
     <mat-icon mat-list-icon>list</mat-icon>
-    <div mat-line><h6>{{studygroup.name}}</h6>
-    </div>
+    <div ><h6>{{studygroup.groupName}}</h6></div>
   </mat-list-item>
+  </div>
 </mat-list>
 
 
-<mat-list *ngIf = "(this.listOfStudyGroups == 'undefined' && this.listOfStudyGroups.length == 0)">
+<mat-list *ngIf = "(this.listOfStudyGroups !== 'undefined' &&  this.listOfStudyGroups.length == 0)">
   <div mat-subheader  [style.background]="'lightgreen'">
   <h6> List of Groups</h6>
     <span class="example-spacer"></span>
@@ -23,4 +24,3 @@
     </div>
   </mat-list-item>
 </mat-list>
-

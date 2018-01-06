@@ -19,6 +19,7 @@ import {MatGridListModule,
         MatListModule,
         MatCardModule,
         MatDialogModule} from '@angular/material/';
+import { GetinformationAboutStudyGroupComponent } from './getinformation-about-study-group/getinformation-about-study-group.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {MatGridListModule,
     ShowSelectComponent,
     DecisionComponent,
     ListOfStudyGroupComponent,
-    ProfileComponent
+    ProfileComponent,
+    GetinformationAboutStudyGroupComponent
   ],
   imports: [
     CommonModule,
@@ -44,4 +46,3 @@ import {MatGridListModule,
 
 })
 export class StudygroupModule { }
-

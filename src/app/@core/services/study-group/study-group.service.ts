@@ -20,9 +20,17 @@ export class StudyGroupService {
   }
   _handleError(error: Response) {
     console.log(error);
-    return Observable.throw(error || 'Server Error');
+    return Observable.throw(error || 'Server Error')
+    .pipe(
+      catchError(this._handleError)
+    );
+  }
+
+
+  // Used by getinformationAboutStudyGroupComponent
+  postgetinformationAboutStudyGroup(user): any {
+  return this._http.post('/api/study-group/get-summary-group-information', user, {headers:
+    new HttpHeaders().set('Content-Type', 'application/json')});
   }
 
 }
-
-

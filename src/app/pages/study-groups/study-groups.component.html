@@ -8,19 +8,15 @@
 </div>
 
 <div *ngIf="showDecisionCOmponent" class="width-left-flow"  ngDraggable >
-<app-decision (messageEvent)="executeOnReceiveEMittedMessageFromChild($event)"></app-decision>
+<app-decision (messageEvent)="executeOnReceiveEMittedMessageFromDecisionComponent($event)"></app-decision>
 </div>
 
 <div *ngIf="showListOfStudyGroupComponent" class="width-left-flow" ngDraggable >
-  <app-list-of-study-group (messageEvent)="executeOnReceiveEMittedMessageFromChild($event)"
+  <app-list-of-study-group (messageEvent)="executeOnReceiveEMittedMessageFromListOfStudyComponent($event)"
                            [listOfStudyGroups]="listOfStudyGroups"
                            [listOfStudyGroupError] = "listOfStudyGroupError"></app-list-of-study-group>
 </div>
 
-
-
-
-
-
-
-
+<div *ngIf = "showGetInformationAboutGroupComponent" class="width-left-flow"  ngDraggable >
+<app-getinformation-about-study-group [listOfGroupMembers]="listOfGroupMembers"></app-getinformation-about-study-group>
+</div>

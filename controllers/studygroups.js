@@ -57,12 +57,12 @@ if(mimetype && extname){
 
 // used in ListOfStudyGroupComponent
 exports.getListOfStudyGroups = (req, res) =>{
-  listOfStudyGroups.find({}, (err, studygroup) =>{
-    if(err){
-      throw err;
-    }
-      res.json(studygroup)
-  })
+  var query = listOfStudyGroups.find({}).select('groupName');
+
+  query.exec(function (err, someValue) {
+      if (err) return next(err);
+      res.send(someValue);
+  });
 }
 
 // #####################################################################################

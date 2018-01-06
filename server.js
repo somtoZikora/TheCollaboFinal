@@ -74,7 +74,7 @@ app.post('/user/signin', userController.postSignIn);
 
 // ##############################################################################################################
 // api-studygroup
-app.get('/api/study-group/list-of-study-groups',passport.authenticate('jwt', {session: false}), studyGroupController.getListOfStudyGroups);
+app.get('/api/study-group/list-of-study-groups', studyGroupController.getListOfStudyGroups);
 app.post('/api/study-group/create-study-group', studyGroupController.postCreateStudyGroup);
 app.post('/api/study-group/sign-up-with-group-name', studyGroupController.signUpWithGroupName);
 app.post('/api/study-group/get-group-information', studyGroupController.getGroupAllInformation);

@@ -15,17 +15,27 @@ export class StudygroupsComponent implements OnInit  {
   messageText: string;
   // ###################################################
 
-  // data variabless
+  // data variabless ***************************************************************************
+  // used in showListOfStudyGroupComponent
   listOfStudyGroups: Array<any> = []
   listOfStudyGroupError: string
 
-  // logic variables
+  // used in showGetInformationAboutGroupComponent
+  listOfGroupMembers: Array<any> = []
+  //***********************************************************************************************
+
+
+  // logic variables ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   showShowSelectComponent = true;
   showDecisionCOmponent = false;
   showListOfStudyGroupComponent = false;
+  showGetInformationAboutGroupComponent = false
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  // nav Variables
+
+  // nav Variables ***************************************************************************
   showProfileComponent = false;
+//***********************************************************************************************
 
   // constructor
   constructor(private _StudyGroupService: StudyGroupService,
@@ -38,8 +48,6 @@ export class StudygroupsComponent implements OnInit  {
 // #############################################################
     this._SocketGroupService.on('mesage-received', (msg: any) => {
       this.messages.push(msg);
-      console.log(msg);
-      console.log(this.messages);
     } )
 
     // ###########################################################
@@ -77,18 +85,37 @@ export class StudygroupsComponent implements OnInit  {
 
 
   // fuctions
-  executeOnReceiveEMittedMessageFromChild($event) {
+  executeOnReceiveEMittedMessageFromDecisionComponent($event) {
     if ($event === 'hideDecisionComponentFromDecisionComponent') {
       this.showDecisionCOmponent = false;
       this.showShowSelectComponent = true;
     }
-    if ($event === 'hideListOfStudyGroupComponentFromListOfStudyGroupComponent') {
-      this.showListOfStudyGroupComponent = false;
-    }
     if ($event === 'showListOfStudyGroupComponentFromDecisionComponent' ) {
       this.showListOfStudyGroupComponent = true;
     }
+
   }
+
+  executeOnReceiveEMittedMessageFromListOfStudyComponent($event) {
+    if ($event === 'hideListOfStudyGroupComponentFromListOfStudyGroupComponent') {
+      this.showListOfStudyGroupComponent = false;
+    }
+
+    if ($event.emitterName === 'dontShowgetInformationAboutStudyGroupComponentFromListOfStudyComponent' ) {
+      this.showGetInformationAboutGroupComponent = false;
+      this.listOfGroupMembers = $event.theStudyGroupMembers
+    }
+    if ($event.emitterName === 'showgetInformationAboutStudyGroupComponentFromListOfStudyComponent' ) {
+      this.showGetInformationAboutGroupComponent = true;
+      this.listOfGroupMembers = $event.theStudyGroupMembers[0]
+    }
+    if ($event.emitterName === 'showgetInformationAboutStudyGroupComponentFromListOfStudyComponentButNoData' ) {
+      this.showGetInformationAboutGroupComponent = true;
+      this.listOfGroupMembers = $event.theStudyGroupMembers
+    }
+
+  }
+
   selectStudyGroup(choice) {
     if (choice === 'hideShowSelectComponent') {
       this.showDecisionCOmponent = true;
@@ -97,4 +124,3 @@ export class StudygroupsComponent implements OnInit  {
   }
 
 }
-

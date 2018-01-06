@@ -1,0 +1,23 @@
+
+<mat-list *ngIf = "(this.listOfGroupMembers.groupMembers !== 'undefined' && this.listOfGroupMembers.groupMembers.length > 0)">
+  <div mat-subheader  [style.background]="'lightgreen'">
+    <h6>Information about Group</h6>
+    <span class="example-spacer"></span>
+    <a class="cancel-icon" (click) = "onCancelClick('cancel')"><mat-icon mat-list-icon>cancel</mat-icon></a>
+  </div>
+
+
+  <mat-list-item>
+    <mat-icon mat-list-icon>list</mat-icon>
+    <div mat-line><h6>{{listOfGroupMembers.groupName}}</h6></div>
+  </mat-list-item>
+
+  <mat-divider></mat-divider>
+
+  <mat-list-item *ngFor="let groupMember of listOfGroupMembers.groupMembers">
+    <mat-icon mat-list-icon>group</mat-icon>
+    <div mat-line><h6>{{groupMember}}</h6></div>
+  </mat-list-item>
+
+
+</mat-list>

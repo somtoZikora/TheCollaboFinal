@@ -4,10 +4,10 @@
 .cancel-icon{
   cursor: pointer;
 }
-h6{
-  font-weight: bold;
-}
 .hover :hover {
   background-color: lightblue;
   cursor: pointer;
+}
+h6{
+  font-weight: bold;
 }
