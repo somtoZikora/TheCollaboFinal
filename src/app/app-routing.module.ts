@@ -10,7 +10,7 @@ import { SignupComponent } from './@theme/components/';
 
 
 const routes: Routes = [
-  { path: '', loadChildren: 'app/pages/pages.module#PagesModule',  }, //canActivate: [AuthGuard]
+  { path: '', loadChildren: 'app/pages/pages.module#PagesModule', canActivate: [AuthGuard] },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: SigninComponent },
   { path: '**', redirectTo: ''},

@@ -3,8 +3,19 @@
  */
 var express = require('express');
 var app = express();
+
+// Allow cross site origin
+app.use(function(req, res, next, error) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
 var server = require('http').createServer(app);
 var io =require('socket.io').listen(server)
+
+// Middle ware to Allow API request from different domains
 
 var path = require('path');
 var bodyParser = require('body-parser');
@@ -16,10 +27,9 @@ const passport = require('passport');
 var morgan = require('morgan');
 var jwt = require('jsonwebtoken');
 var passportCofig = require('./config/passport');
-var cors = require('cors');
+//var cors = require('cors');
 
 var multiparty = require('connect-multiparty')();
-
 
 /**
  * load enviroment variables into process
@@ -35,6 +45,8 @@ const studyGroupController = require('./controllers/studygroups');
 
 var port = 3000;
 
+//app.use(cors());
+
 
 /*connect to mongo db*/
 mongoose.Promise = global.Promise
@@ -48,8 +60,8 @@ mongoose.connection.on('error', (err)=>{
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Middle ware to Allow API request from different domains
-app.use(cors());
+
+
 
 // Middle ware Body Parser
 app.use(bodyParser.json());
@@ -91,7 +103,7 @@ app.post('/api/study-group/post-file-update-to-group', studyGroupController.post
 // ##############################################################################################################
 /* Send all other requests to angular app */
 app.get('*', (req, res)=>{
-  res.sendFile(path.join(__dirname, 'dist/index.html' ))
+  res.sendFile(path.join(__dirname, '../dist/index.html' ))
 })
 
 server.listen(port)
