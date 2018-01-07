@@ -12,8 +12,7 @@ export class StudyGroupService {
   // Used by listOfStudyGroupComponent
   getListOfStudyGroups(): any {
     this.authToken = localStorage.getItem('id_token');
-    return this._http.get('/api/study-group/list-of-study-groups', {headers:
-      new HttpHeaders().set('Authorization', this.authToken)})
+    return this._http.get('/api/study-group/list-of-study-groups')
       .pipe(
         catchError(this._handleError)
       );
