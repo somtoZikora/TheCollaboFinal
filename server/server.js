@@ -76,29 +76,31 @@ passportCofig.strategy(passport);
 
 app.post('/user/signup', userController.postSignup);
 app.post('/user/authenticate', userController.postAuthenticate);
-app.get('/user/profile',passport.authenticate('jwt', {session: false}), userController.getMe);
-app.post('/user/update-info', userController.postUpdateInfo);
+app.get('/user/profile',passport.authenticate('jwt', {session: false}),passport.authenticate('jwt', {session: false}), userController.getMe);
+app.post('/user/update-info',passport.authenticate('jwt', {session: false}), userController.postUpdateInfo);
 app.get('/user/contact', contactController.getContact);
 app.post('/user/contact', contactController.postContact);
+
+// +++++++++++++++++++++++++Placed in component but not fully tested+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+app.post('/api/study-group/get-summary-group-information', studyGroupController.getSummaryOfGroupInformation);
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //unUsed
 app.post('/user/signin', userController.postSignIn);
 
 // ##############################################################################################################
 // api-studygroup
-app.get('/api/study-group/list-of-study-groups', studyGroupController.getListOfStudyGroups);
-app.post('/api/study-group/create-study-group', studyGroupController.postCreateStudyGroup);
-app.post('/api/study-group/sign-up-with-group-name', studyGroupController.signUpWithGroupName);
-app.post('/api/study-group/get-group-information', studyGroupController.getGroupAllInformation);
-app.post('/api/study-group/get-summary-group-information', studyGroupController.getSummaryOfGroupInformation);
-app.post('/api/study-group/post-message', studyGroupController.postSendMessageToGroupComponent);
-app.post('/api/study-group/get-message', studyGroupController.getMessageToGroupComponent);
-app.post('/api/study-group/post-friend-request-to-group', studyGroupController.postFriendRequestToGroupComponent);
-app.post('/api/study-group/post-confirm-friend-request-to-group', studyGroupController.postConfirmFriendRequestToGroupComponent);
-
-app.post('/api/study-group/post-file-upload-to-group',multiparty, studyGroupController.postFileToGroupComponent);
-app.get('/api/study-group/get-file-upload-to-group/:fileName', studyGroupController.readFileToGroupComponent);
-app.post('/api/study-group/post-file-update-to-group', studyGroupController.postUpdateFileComponent);
+app.get('/api/study-group/list-of-study-groups',passport.authenticate('jwt', {session: false}), studyGroupController.getListOfStudyGroups);
+app.post('/api/study-group/create-study-group',passport.authenticate('jwt', {session: false}), studyGroupController.postCreateStudyGroup);
+app.post('/api/study-group/sign-up-with-group-name',passport.authenticate('jwt', {session: false}), studyGroupController.signUpWithGroupName);
+app.post('/api/study-group/get-group-information',passport.authenticate('jwt', {session: false}), studyGroupController.getGroupAllInformation);
+app.post('/api/study-group/post-message',passport.authenticate('jwt', {session: false}), studyGroupController.postSendMessageToGroupComponent);
+app.post('/api/study-group/get-message',passport.authenticate('jwt', {session: false}), studyGroupController.getMessageToGroupComponent);
+app.post('/api/study-group/post-friend-request-to-group',passport.authenticate('jwt', {session: false}),passport.authenticate('jwt', {session: false}), studyGroupController.postFriendRequestToGroupComponent);
+app.post('/api/study-group/post-confirm-friend-request-to-group',passport.authenticate('jwt', {session: false}), studyGroupController.postConfirmFriendRequestToGroupComponent);
+app.post('/api/study-group/post-file-upload-to-group',multiparty,passport.authenticate('jwt', {session: false}), studyGroupController.postFileToGroupComponent);
+app.get('/api/study-group/get-file-upload-to-group/:fileName',passport.authenticate('jwt', {session: false}), studyGroupController.readFileToGroupComponent);
+app.post('/api/study-group/post-file-update-to-group',passport.authenticate('jwt', {session: false}), studyGroupController.postUpdateFileComponent);
 
 // ##############################################################################################################
 /* Send all other requests to angular app */

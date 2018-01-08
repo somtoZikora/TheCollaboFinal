@@ -287,32 +287,40 @@ listOfStudyGroups.findOne(query, (err, studyGroup) => {
 })
 }
 
-// used in postFriendRequestToGroupComponent
+// Used by post friend request getinformationAboutStudyGroupComponent
 exports.postFriendRequestToGroupComponent = (req, res)=> {
+
+  req.checkBody("groupName", "You did not enter any name for study group").notEmpty();
+
+  var errors = req.validationErrors();
+  if (errors) {
+   return res.json({success:false, message: errors[0].msg});
+  }
 
   var query = {groupName: req.body.groupName}
   listOfStudyGroups.findOne(query, (err, studyGroup) => {
     if(err) throw err
     if(!studyGroup) return res.json({success: false, message: 'Error occured while trying to fetch user group'})
 
-    User.findOne({username:req.body.username}, (err, user) => {
+    User.findOne({username:req.user.username}, (err, user) => {
       if (err) console.log(err)
       if (!user) return res.json({success:false, message: 'Error occured'})
 
-          //add User Id to group and save(referncing)
+          //add User Id to intended and save(referncing)
           studyGroup.intendedFriends.push(user._id);
           studyGroup.save((err, group) => {
             if (err) throw err;
-            if(!group) return res.json({success:false, message: 'Error trying to add user to group'})
+            if(!group) return res.json({success:false, message: 'Error trying to add user to intendedFriends'})
             listOfStudyGroups.findOne(query).populate('intendedFriends').exec(function (err, story) {
                 if (err) return handleError(err);
               res.json({success: true,
-                message: 'study group created and User Id added to Study Group'} )
+                message: 'You friend request has been sent'} )
               }
             )
           })
     })
   })
+
 }
 
 

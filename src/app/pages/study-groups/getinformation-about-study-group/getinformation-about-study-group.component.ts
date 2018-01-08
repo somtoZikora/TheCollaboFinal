@@ -7,11 +7,20 @@ import {StudyGroupService} from './../../../@core/services/study-group/study-gro
   styleUrls: ['./getinformation-about-study-group.component.css']
 })
 export class GetinformationAboutStudyGroupComponent {
-  groupMembers: string
     @Input() listOfGroupMembers: any;
+    showMessage: string
 
   // constructor
-  constructor(private _StudyGroupService: StudyGroupService) {
-}
+  constructor(private _StudyGroupService: StudyGroupService) {}
+
+  sendFriendRequest(){
+    const userInfo = {
+      groupName: this.listOfGroupMembers.groupName
+    }
+    this._StudyGroupService.postFriendRequestToGroup(userInfo).subscribe(data => {
+      if(data.success == false) return this.showMessage = data.message
+      this.showMessage = data.message
+    })
+  }
 
 }

@@ -11,7 +11,6 @@ export class StudyGroupService {
 
   // Used by listOfStudyGroupComponent
   getListOfStudyGroups(): any {
-    this.authToken = localStorage.getItem('id_token');
     return this._http.get('/api/study-group/list-of-study-groups')
       .pipe(
         catchError(this._handleError)
@@ -29,6 +28,12 @@ export class StudyGroupService {
   // Used by getinformationAboutStudyGroupComponent
   postgetinformationAboutStudyGroup(user): any {
   return this._http.post('/api/study-group/get-summary-group-information', user, {headers:
+    new HttpHeaders().set('Content-Type', 'application/json')});
+  }
+
+  // Used by post friend request getinformationAboutStudyGroupComponent
+  postFriendRequestToGroup(userInfo): any {
+  return this._http.post('/api/study-group/post-friend-request-to-group', userInfo, {headers:
     new HttpHeaders().set('Content-Type', 'application/json')});
   }
 
