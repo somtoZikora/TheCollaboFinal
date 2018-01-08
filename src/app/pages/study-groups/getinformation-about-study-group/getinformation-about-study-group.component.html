@@ -18,6 +18,7 @@
     <mat-icon mat-list-icon>group</mat-icon>
     <div mat-line><h6>{{groupMember}}</h6></div>
   </mat-list-item>
-
+<button mat-button  [style.background]="'lightgreen'" (click) = "sendFriendRequest()">Request to Join Group</button>
+<h6 style="color:red">{{showMessage}}</h6>
 
 </mat-list>

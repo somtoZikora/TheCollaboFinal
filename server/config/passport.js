@@ -16,13 +16,22 @@ exports.strategy = (passport) => {
         return done(err, false);
       }
       if(user){
-        return done(null, user);
+        return done(null, user); // uncomment if below does not work
       }else {
         return done(null, false);
       }
     });
   }))
+
+  passport.serializeUser(function (user, done) {
+      done(null, user.id);
+  });
+  passport.deserializeUser(function (id, done) {
+      var user = USERS[id];
+      done(null, user);
+  });
 }
+
 
 exports.ensureAuthorized = (req, res, next) => {
   var bearerToken;

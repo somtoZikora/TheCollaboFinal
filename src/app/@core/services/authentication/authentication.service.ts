@@ -14,14 +14,17 @@ export class AuthenticationService {
 
   // Used by SignupComponent
   signup(user): any {
-    return this._http.post('/user/signup', user, {headers:
-    new HttpHeaders().set('Content-Type', 'application/json')});
+    return this._http.post('/user/signup', user,
+    {headers:new HttpHeaders().set('Content-Type', 'application/json')
+    .set(skipAuthorization: true)}
+  );
   }
 
   // Used by SignInComponent
   loginAuthenticateUser(user): any {
-    return this._http.post('/user/authenticate', user, {headers:
-      new HttpHeaders().set('Content-Type', 'application/json')});
+    return this._http.post('/user/authenticate', user,
+    {headers:new HttpHeaders().set('Content-Type', 'application/json')}
+    );
   }
 
   // Used by Porfile Component
@@ -62,5 +65,3 @@ export class AuthenticationService {
     localStorage.clear();
   }
 }
-
-
