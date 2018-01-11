@@ -15,8 +15,7 @@ export class AuthenticationService {
   // Used by SignupComponent
   signup(user): any {
     return this._http.post('/user/signup', user,
-    {headers:new HttpHeaders().set('Content-Type', 'application/json')
-    .set(skipAuthorization: true)}
+    {headers:new HttpHeaders().set('Content-Type', 'application/json')}
   );
   }
 

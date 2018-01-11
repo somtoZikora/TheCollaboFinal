@@ -88,7 +88,7 @@ exports.postCreateStudyGroup = (req, res) =>{
     }
 
 
-    User.findOne({username:req.body.username}, (err, user) => {
+    User.findOne({username:req.user.username}, (err, user) => {
       if (err) console.log(err)
       if (!user) return res.json({success:false, message: 'Error occured'})
 

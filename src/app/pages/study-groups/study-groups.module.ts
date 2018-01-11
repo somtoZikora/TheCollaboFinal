@@ -13,6 +13,7 @@ import {ShowSelectComponent} from './showSelect/showSelect.component';
 import {DecisionComponent} from './decision/decision.component';
 import {ListOfStudyGroupComponent} from './listOfStudyGroupComponent/listOfStudyGroupComponent.component';
 import { ProfileComponent } from '../profile/profile.component';
+import { createStudyGroupComponent } from './create-study-group/create-study-group.component';
 
 import {StudygroupsComponent} from './study-groups.component';
 import {MatGridListModule,
@@ -28,6 +29,7 @@ import { GetinformationAboutStudyGroupComponent } from './getinformation-about-s
     DecisionComponent,
     ListOfStudyGroupComponent,
     ProfileComponent,
+    createStudyGroupComponent,
     GetinformationAboutStudyGroupComponent
   ],
   imports: [
