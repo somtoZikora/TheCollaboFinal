@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,EventEmitter,Output } from '@angular/core';
 import {StudyGroupService} from './../../../@core/services/study-group/study-group.service'
 
 @Component({
@@ -7,6 +7,7 @@ import {StudyGroupService} from './../../../@core/services/study-group/study-gro
   styleUrls: ['./getinformation-about-study-group.component.css']
 })
 export class GetinformationAboutStudyGroupComponent {
+    @Output() messageEvent = new EventEmitter<any>();
     @Input() listOfGroupMembers: any;
     showMessage: string
 
@@ -23,4 +24,9 @@ export class GetinformationAboutStudyGroupComponent {
     })
   }
 
+  onCancelClick(choice) {
+    if (choice === 'cancel') {
+      this.messageEvent.emit('hideGetInformationAboutStudyGroupComponentFromGetInformationAboutStudyGroupComponent');
+    }
+  }
 }

@@ -1,0 +1,19 @@
+<mat-list >
+  <div mat-subheader  [style.background]="'lightgreen'">
+    <h6>Create Study Group</h6>
+    <span class="example-spacer"></span>
+    <a class="cancel-icon" (click) = "onCancelClick('cancel')"><mat-icon mat-list-icon>cancel</mat-icon></a>
+  </div>
+</mat-list>
+
+  <div class="form-container">
+    <mat-form-field>
+      <input matInput placeholder="Enter Group Name" [(ngModel)] ="groupname" name="groupname">
+    </mat-form-field>
+  </div>
+
+  <button mat-raised-button [style.background] = "'lightgreen'"
+
+  class="formbutton" (click)="createGroup()">Create</button>
+
+  <h6 style="color:red">{{showMessage}}</h6>

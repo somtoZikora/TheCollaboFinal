@@ -1,0 +1,20 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+.cancel-icon{
+  cursor: pointer;
+  float: right;
+}
+.hover :hover {
+  background-color: lightblue;
+  cursor: pointer;
+}
+h6{
+  font-weight: bold;
+}
+
+
+/*remove if it does not fit */
+.form-container > * {
+  width: 100%;
+}

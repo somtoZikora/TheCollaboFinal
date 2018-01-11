@@ -30,6 +30,7 @@ export class StudygroupsComponent implements OnInit  {
   showDecisionCOmponent = false;
   showListOfStudyGroupComponent = false;
   showGetInformationAboutGroupComponent = false
+  showCreateStudyCOmponent = false
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -93,6 +94,9 @@ export class StudygroupsComponent implements OnInit  {
     if ($event === 'showListOfStudyGroupComponentFromDecisionComponent' ) {
       this.showListOfStudyGroupComponent = true;
     }
+    if ($event === 'showCreateGroupComponentFromDecisionComponent' ) {
+      this.showCreateStudyCOmponent = true;
+    }
 
   }
 
@@ -114,6 +118,18 @@ export class StudygroupsComponent implements OnInit  {
       this.listOfGroupMembers = $event.theStudyGroupMembers
     }
 
+  }
+
+  executeOnReceiveEMittedMessageFromGetInformationAboutStudyGroupComponent($event) {
+    if ($event === 'hideGetInformationAboutStudyGroupComponentFromGetInformationAboutStudyGroupComponent') {
+      this.showGetInformationAboutGroupComponent = false;
+    }
+  }
+
+  executeOnReceiveEMittedMessageFromCreateSTudyGroup($event) {
+    if ($event === 'hideCreateStudyGroupComponentFromCreateStudyGroupComponent') {
+      this.showCreateStudyCOmponent = false;
+    }
   }
 
   selectStudyGroup(choice) {

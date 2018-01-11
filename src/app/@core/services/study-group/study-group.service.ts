@@ -37,4 +37,9 @@ export class StudyGroupService {
     new HttpHeaders().set('Content-Type', 'application/json')});
   }
 
+  // Used by createStudyGroupComponent
+  postCreateStudyGroup(studyGroupInfo): any {
+  return this._http.post('/api/study-group/create-study-group', studyGroupInfo, {headers:
+    new HttpHeaders().set('Content-Type', 'application/json')});
+  }
 }
