@@ -1,28 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationService} from '../../@core/services/authentication/authentication.service';
+
 
 @Component({
-  selector: 'app-update-info',
+  selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  update = false;
-  user = {
-    firstname: '',
-    lastname: '',
-    language: '',
-    courseofstudy: '',
-    degree: ''
-  };
-  constructor(private _AuhtenticationService: AuthenticationService) { }
 
-  ngOnInit() {
-  }
-  onSubmit() {
-    this._AuhtenticationService.updateInfo(this.user).subscribe(data => {
-      this.update = data;
-      console.log(data);
-    });
-  }
+  constructor() { }
+
+  ngOnInit() {}
+
 }

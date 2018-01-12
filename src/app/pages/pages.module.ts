@@ -22,7 +22,6 @@ import {MatGridListModule,
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { PagesRoutingModule } from './pages-routing.module';
 
@@ -33,7 +32,6 @@ import { PagesRoutingModule } from './pages-routing.module';
   declarations: [
     HomeComponent,
     ContactComponent,
-    DashboardComponent,
     PagesComponent
   ],
   imports: [
@@ -52,4 +50,3 @@ import { PagesRoutingModule } from './pages-routing.module';
 
 })
 export class PagesModule { }
-

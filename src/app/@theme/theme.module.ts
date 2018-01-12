@@ -12,7 +12,9 @@ import {MatToolbarModule,
         MatFormFieldModule,
         MatInputModule,
         MatCardModule,
-        MatButtonModule} from '@angular/material';
+        MatButtonModule,
+        MatListModule,
+        MatGridListModule} from '@angular/material';
 
 
 
@@ -22,6 +24,7 @@ import {
   NavbarComponent,
   SigninComponent,
   SignupComponent,
+  ProfileComponent
 } from './components';
 
 const BASE_MODULES = [
@@ -36,14 +39,17 @@ const BASE_MODULES = [
   MatFormFieldModule,
   MatInputModule,
   MatCardModule,
-  MatButtonModule
+  MatButtonModule,
+  MatListModule,
+  MatGridListModule
  ];
 
 const COMPONENTS = [
   FooterComponent,
   NavbarComponent,
   SigninComponent,
-  SignupComponent
+  SignupComponent,
+  ProfileComponent
 ];
 
 @NgModule({
@@ -53,4 +59,3 @@ const COMPONENTS = [
 })
 export class ThemeModule {
 }
-

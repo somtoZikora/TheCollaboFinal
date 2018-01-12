@@ -3,5 +3,6 @@
  */
 export * from './footer/footer.component';
 export * from './navbar/navbar.component';
+export * from './profile-icon/profile/profile.component';
 
  export * from './auth';
