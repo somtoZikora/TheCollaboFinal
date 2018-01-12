@@ -11,7 +11,7 @@ export class StudygroupsComponent implements OnInit  {
 
   // ###################################################
   // message variable for chat
-  messages: Array<any>
+  messages: Array<any> 
   messageText: string;
   // ###################################################
 

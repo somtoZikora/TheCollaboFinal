@@ -74,6 +74,32 @@ exports.postAuthenticate = (req, res) => {
   })
 }
 
+//Used by update-profile-InformationComponent
+exports.postUpdateInfo = (req, res, next) => {
+
+  //user model to update user in the db
+  var query = {username:req.user.username}
+  User.findOne(query,(err, doc)=>{
+    if(err){
+      throw err
+    }
+
+    doc.firstname = req.body.firstname;
+    doc.lastname = req.body.lastname;
+    doc.language =req.body.language;
+    doc.courseofstudies =req.body.courseofstudies;
+    doc.degree = req.body.degree;
+    doc.save((err, doc, numAffected)=>{
+      if(err){
+      throw err
+      }
+      res.json({sucess: true, message: 'You Profile has been updated'});
+    });
+  });
+}
+
+// ********************************* would take out the components*********************************************************
+
 //Used by ProfileComponent
 exports.getMe = (req, res) => {
   //User.findOne({token: req.token}, (err, user) => {
@@ -89,40 +115,6 @@ exports.getMe = (req, res) => {
   // }
   // }   )
 }
-
-// ********************************* would take out the components*********************************************************
-
-//Used by Dashboard Component
-exports.postUpdateInfo = (req, res, next) => {
-  var updatedUserData = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    language: req.body.language,
-    courseofstudies: req.body.courseofstudies,
-    degree: req.body.degree
-  }
-
-  //user model to update user in the db
-  User.findOne({username:'ddn'},(err, doc)=>{
-    if(err){
-      console.log(err)
-    }
-
-    doc.firstname = updatedUserData.firstname;
-    doc.lastname = updatedUserData.lastname;
-    doc.language =updatedUserData.language;
-    doc.courseofstudies =updatedUserData.courseofstudies;
-    doc.degree = updatedUserData.degree;
-    doc.save((err, doc, numAffected)=>{
-      if(err){
-        console.log(err)
-      }
-      res.json({sucess: false, message: 'failed to register User'});
-    });
-  });
-}
-
-
 
 //Unused
 exports.postSignIn = (req, res) => {

@@ -69,7 +69,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(expressValidator());
 
 //Middle ware passport
-app.use(passport.initialize());
+app.use(passport.initialize()); 
 app.use(passport.session());
 
 passportCofig.strategy(passport);

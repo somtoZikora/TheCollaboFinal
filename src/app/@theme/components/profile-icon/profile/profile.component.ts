@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import {AuthenticationService} from '../../@core/services/authentication/authentication.service';
+import { Component, } from '@angular/core';
+import {AuthenticationService} from './../../../../@core/services/authentication/authentication.service';
 import {Router} from '@angular/router';
-import {ProfileService} from '../../@core/services/profile/profile.service';
+import {ProfileService} from './../../../../@core/services/profile/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -19,5 +19,7 @@ export class ProfileComponent  {
   onCancelClick() {
     this._ProfileService.changeMessage('hideProfileComponentFromNavbar');
   }
+updateProfile(){
+  this._Router.navigate(['/dashboard/update-profile-information']);
 }
-
+}
