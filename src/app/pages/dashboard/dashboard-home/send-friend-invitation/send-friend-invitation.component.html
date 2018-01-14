@@ -1,0 +1,17 @@
+<mat-list >
+  <div mat-subheader  [style.background]="'lightgreen'">
+    <h6>Send Invitation to Friend</h6>
+  </div>
+</mat-list>
+
+  <div class="form-container">
+    <mat-form-field>
+      <input matInput placeholder="Enter Friends Email" [(ngModel)] ="friendsEmail" name="friendsEmail">
+    </mat-form-field>
+  </div>
+
+  <button mat-raised-button [style.background] = "'lightgreen'"
+
+  class="formbutton" (click)="onSendFriendInvitation()">Send</button>
+
+  <h6 style="color:red">{{showMessage}}</h6>

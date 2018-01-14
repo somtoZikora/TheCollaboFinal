@@ -6,27 +6,34 @@ import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 
+
+
 import { AngularDraggableModule } from 'angular2-draggable';
 
 import {DashBoardRoutingModule} from './dashboard-routing.module'
 
-import {UpdateProfileInformationComponent} from './update-profile-information/update-profile-information.component'
 import {DashboardComponent} from './dashboard.component'
+import {DashboardHomeModule} from './dashboard-home/dashboard-home.module'
+import {UpdateProfileInformationComponent} from './components'
+
+const COMPONENTS = [UpdateProfileInformationComponent]
+
+
 
 @NgModule({
   declarations: [
-    UpdateProfileInformationComponent,
-    DashboardComponent
+    DashboardComponent,
+    COMPONENTS
   ],
   imports: [
     CommonModule,
     FormsModule,
     DashBoardRoutingModule,
     HttpClientModule,
-    AngularDraggableModule
+    AngularDraggableModule,
+    DashboardHomeModule,
   ],
   exports: [],
-  providers: [],
-
+  providers: []
 })
 export class DashboardModule { }

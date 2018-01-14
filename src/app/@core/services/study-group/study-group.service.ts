@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 
-
 @Injectable()
 export class StudyGroupService {
   constructor(private _http: HttpClient) { }
@@ -42,4 +41,19 @@ export class StudyGroupService {
   return this._http.post('/api/study-group/create-study-group', studyGroupInfo, {headers:
     new HttpHeaders().set('Content-Type', 'application/json')});
   }
+
+  //used in the send-frined-invitationComponent
+postSendFriendInvitation(friend): any{
+return this._http.post('/api/study-group/send-friend-invitation', friend, {headers:
+  new HttpHeaders().set('Content-Type', 'application/json')})
+}
+
+//used in InformationComponent to get users group
+getUsersGroups(): any{
+  return this._http.get('/api/study-group/get-users-study-groups')
+  .pipe(
+    catchError(this._handleError)
+  );
+}
+
 }

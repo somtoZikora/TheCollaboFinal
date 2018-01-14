@@ -1,7 +1,9 @@
 <div *ngIf="showProfileComponent" class="width-right-flow" ngDraggable>
   <app-profile></app-profile>
 </div>
-
+<div *ngIf="showInformationComponent" class="width-right-flow" ngDraggable>
+  <app-information></app-information>
+</div>
 <div *ngIf="showShowSelectComponent " class="width-left-flow" (click)="selectStudyGroup('hideShowSelectComponent')"
      ngDraggable>
   <app-show-select></app-show-select>

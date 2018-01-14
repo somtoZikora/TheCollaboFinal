@@ -4,19 +4,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { UpdateProfileInformationComponent } from './update-profile-information/update-profile-information.component';
+import { UpdateProfileInformationComponent } from './components/';
 
 import {AuthGuard} from '../../@core/guards/auth.guard';
 
 import {DashboardComponent} from './dashboard.component'
+import {DashboardHomeComponent} from './dashboard-home/dashboard-home.component'
 
 
 const routes: Routes = [
   { path: '',
     component: DashboardComponent,
     children: [
-      { path: '', redirectTo: 'update-profile-information' },
-      { path: 'update-profile-information', component: UpdateProfileInformationComponent}
+      { path: '', redirectTo: 'dashboard-home' },
+      {path:'dashboard-home', component:DashboardHomeComponent},
+      { path: 'update-profile-information', component: UpdateProfileInformationComponent},
     ]},
 ];
 

@@ -13,5 +13,8 @@ export class NavbarComponent {
   onClickProfileIcon(choice) {
     if (choice === 'Profile')
     this._ProfileService.changeMessage('showProfileComponentFromNavbar');
+
+    if (choice === 'Information')
+    this._ProfileService.changeMessage('showInformationComponentFromNavbar');
   }
 }
