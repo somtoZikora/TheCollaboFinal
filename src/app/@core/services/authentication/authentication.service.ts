@@ -33,7 +33,7 @@ export class AuthenticationService {
       new HttpHeaders().set('Authorization', this.authToken)});
   }
 
-  // Used by Dashboard Component
+  // Used by update-profile-informationComponent
   updateInfo(user): any {
     return this._http.post<redirectURL>('/user/update-info', user);
   }

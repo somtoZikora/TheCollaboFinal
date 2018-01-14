@@ -11,7 +11,7 @@ export class StudygroupsComponent implements OnInit  {
 
   // ###################################################
   // message variable for chat
-  messages: Array<any> 
+  messages: Array<any>
   messageText: string;
   // ###################################################
 
@@ -22,6 +22,10 @@ export class StudygroupsComponent implements OnInit  {
 
   // used in showGetInformationAboutGroupComponent
   listOfGroupMembers: Array<any> = []
+
+  // used in showInformationComponent
+  usersGroups: Array<any> = []
+  usersGroupsError: string
   //***********************************************************************************************
 
 
@@ -36,6 +40,7 @@ export class StudygroupsComponent implements OnInit  {
 
   // nav Variables ***************************************************************************
   showProfileComponent = false;
+  showInformationComponent = false;
 //***********************************************************************************************
 
   // constructor
@@ -53,6 +58,14 @@ export class StudygroupsComponent implements OnInit  {
 
     // ###########################################################
 
+    //handle servive for InformationComponent
+    this._StudyGroupService.getUsersGroups().subscribe(data =>{
+    this.usersGroups = data
+    this._ProfileService.postUserGroup(this.usersGroups);
+  }, usersGroupsError => {
+    this.usersGroupsError = usersGroupsError;
+  })
+
     // handle serveice for listOfStudyGroupComponet
     this._StudyGroupService.getListOfStudyGroups().subscribe(data => {
       this.listOfStudyGroups = data;
@@ -68,6 +81,12 @@ export class StudygroupsComponent implements OnInit  {
         }
         if (message === 'hideProfileComponentFromNavbar') {
           this.showProfileComponent = false;
+        }
+        if (message === 'showInformationComponentFromNavbar') {
+          this.showInformationComponent = true;
+        }
+        if (message === 'hideInformationComponentFromNavbar') {
+          this.showInformationComponent = false;
         }
       });
 

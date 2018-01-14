@@ -69,22 +69,25 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(expressValidator());
 
 //Middle ware passport
-app.use(passport.initialize()); 
+app.use(passport.initialize());
 app.use(passport.session());
 
 passportCofig.strategy(passport);
 
 app.post('/user/signup', userController.postSignup);
 app.post('/user/authenticate', userController.postAuthenticate);
-app.get('/user/profile',passport.authenticate('jwt', {session: false}),passport.authenticate('jwt', {session: false}), userController.getMe);
 app.post('/user/update-info',passport.authenticate('jwt', {session: false}), userController.postUpdateInfo);
-app.get('/user/contact', contactController.getContact);
 app.post('/user/contact', contactController.postContact);
 
+//confirm if it used
+app.get('/user/profile',passport.authenticate('jwt', {session: false}),passport.authenticate('jwt', {session: false}), userController.getMe);
 // +++++++++++++++++++++++++Placed in component but not fully tested+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+app.get('/api/study-group/list-of-study-groups',passport.authenticate('jwt', {session: false}), studyGroupController.getListOfStudyGroups);
 app.post('/api/study-group/get-summary-group-information', studyGroupController.getSummaryOfGroupInformation);
 app.post('/api/study-group/post-friend-request-to-group',passport.authenticate('jwt', {session: false}),passport.authenticate('jwt', {session: false}), studyGroupController.postFriendRequestToGroupComponent);
 app.post('/api/study-group/create-study-group',passport.authenticate('jwt', {session: false}), studyGroupController.postCreateStudyGroup);
+app.get('/api/study-group/get-users-study-groups',multiparty,passport.authenticate('jwt', {session: false}), studyGroupController.getUserGroups);
+
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //unUsed
@@ -92,7 +95,7 @@ app.post('/user/signin', userController.postSignIn);
 
 // ##############################################################################################################
 // api-studygroup
-app.get('/api/study-group/list-of-study-groups',passport.authenticate('jwt', {session: false}), studyGroupController.getListOfStudyGroups);
+app.post('/api/study-group/send-friend-invitation',passport.authenticate('jwt', {session: false}), studyGroupController.sendInvitationToFriend);
 app.post('/api/study-group/sign-up-with-group-name',passport.authenticate('jwt', {session: false}), studyGroupController.signUpWithGroupName);
 app.post('/api/study-group/get-group-information',passport.authenticate('jwt', {session: false}), studyGroupController.getGroupAllInformation);
 app.post('/api/study-group/post-message',passport.authenticate('jwt', {session: false}), studyGroupController.postSendMessageToGroupComponent);

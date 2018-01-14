@@ -1,0 +1,21 @@
+<div>
+  <mat-list>
+
+    <div mat-subheader  [style.background]="'lightgreen'">
+      <h6>Groups joined</h6>
+      <span class="example-spacer"></span>
+      <a class="hover" (click) = "onCancelClick()">
+        <mat-icon mat-list-icon >cancel</mat-icon>
+      </a>
+    </div>
+
+    <div class="hover" *ngFor = "let userGroup of userGroups">
+      <mat-list-item (click) = "updateSelectGroup(userGroup.groupName)">
+        <mat-icon mat-list-icon >list</mat-icon>
+        <div mat-line><h6>{{userGroup.groupName}}</h6>
+        </div>
+      </mat-list-item>
+    </div>
+
+  </mat-list>
+</div>

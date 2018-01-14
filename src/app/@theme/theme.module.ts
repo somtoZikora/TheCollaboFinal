@@ -24,7 +24,8 @@ import {
   NavbarComponent,
   SigninComponent,
   SignupComponent,
-  ProfileComponent
+  ProfileComponent,
+  InformationComponent
 } from './components';
 
 const BASE_MODULES = [
@@ -49,7 +50,8 @@ const COMPONENTS = [
   NavbarComponent,
   SigninComponent,
   SignupComponent,
-  ProfileComponent
+  ProfileComponent,
+  InformationComponent
 ];
 
 @NgModule({

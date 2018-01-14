@@ -133,15 +133,13 @@ exports.sendInvitationToFriend = (req, res) => {
     "<br><a href="+link+">Click here to verify</a> "
   }
 
-  console.log(mailOptions);
 
   smtpTransport.sendMail(mailOptions, (error, response) => {
     if(error){
       console.log(error) ;
       res.send(error)
     }else{
-      console.log("Message sent: "+ response.message);
-      res.end("sent");
+      res.json({'success': true, 'message':'sent'});
     }
   })
 
@@ -355,117 +353,6 @@ listOfStudyGroups.findOne(query, (err, studyGroup) => {
 })
 }
 
-
-//***********************************************************************************************************************************
-
-
-
-    // used in postFileToGroupComponent
-  /*  exports.postFileToGroupComponent = (req, res) => {
-      var db = mongoose.connection.db;
-      var mongoDriver = mongoose.mongo;
-      var gfs = new Gridfs(db, mongoDriver);
-
-      console.log(req.files.file.name);
-
-      var writestream = gfs.createWriteStream({
-        filename: req.files.file.name,
-        mode: 'w',
-        content_type: req.files.file.mimetype,
-        //metadata: req.body
-   });
-
-
-    fs.createReadStream(req.files.file.path).pipe(writestream);
-      writestream.on('close', function(file) {
-        fs.unlink(req.files.file.path, function(err) {
-          // handle error
-          console.log('success!')
-          res.json({success: true, message:'file uploaded'})
-        });
-      });
-
-    }
-
-
-    // used in readFileToGroupComponent
-    exports.readFileToGroupComponent = (req, res) => {
-      var db = mongoose.connection.db;
-      var mongoDriver = mongoose.mongo;
-      var gfs = new Gridfs(db, mongoDriver);
-
-      let imgname = req.params.imgname;
-        gfs.files.find({
-            filename: imgname
-        }).toArray((err, files) => {
-
-            if (files.length === 0) {
-                return res.status(404).send({
-                    message: 'File not found'
-                });
-            }
-            let data = [];
-            let readstream = gfs.createReadStream({
-                filename: files[0].filename
-            });
-
-            readstream.on('data', (chunk) => {
-                data.push(chunk);
-            });
-
-            readstream.on('end', () => {
-                data = Buffer.concat(data);
-                // let img = 'data:image/png;base64,' + Buffer(data).toString('base64');  // to enable base64
-                res.end(data);
-            });
-
-            readstream.on('error', (err) => {
-              // if theres an error, respond with a status of 500
-              // responds should be sent, otherwise the users will be kept waiting
-              // until Connection Time out
-                res.status(500).send(err);
-                console.log('An error occurred!', err);
-            });
-        });
-    }
-
-
-// used in the updateFileComponent
-exports.postUpdateFileComponent = (req, res) => {
-  var db = mongoose.connection.db;
-  var mongoDriver = mongoose.mongo;
-  var gfs = new Gridfs(db, mongoDriver);
-
-console.log(req.files.file.path);
-
-  gfs.remove({
-    filename: req.files.file.name
-    }, function (err) {
-    if (err) return handleError(err);
-  });
-
-  var writestream = gfs.createWriteStream({
-    filename:  req.files.file.name,
-    mode: 'w',
-    content_type: req.files.file.mimetype,
-    groupName: 'My Group'
-    //metadata: req.body
-});
-
-
-fs.createReadStream(req.files.file.path).pipe(writestream);
-  writestream.on('close', function(file) {
-    fs.unlink(req.files.file.path, function(err) {
-      // handle error
-      console.log('success!')
-      res.json({success: true, message:'file uploaded'})
-    });
-  });
-
-
-}*/
-//***********************************************************************************************************************************
-
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 exports.postFileToGroupComponent = (req, res) => {
   upload(req, res, (err) => {
@@ -548,6 +435,21 @@ exports.postUpdateFileComponent = (req, res) => {
 
 }
 
+//++++++++++++++++++++++++++++++++++++++++++++++++++++
+exports.getUserGroups = (req,res) =>{
+
+  var queryInput = {
+    groupMembers:{$all:[ mongoose.Types.ObjectId(req.user._id)]}
+  }
+
+  var query = listOfStudyGroups.find(queryInput).select('groupName');
+
+  query.exec(function (err, someValue) {
+      if (err) return next(err);
+      res.send(someValue);
+  });
+
+}
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
