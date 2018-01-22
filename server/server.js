@@ -49,13 +49,23 @@ var port = 3000;
 
 
 /*connect to mongo db*/
-mongoose.Promise = global.Promise
+/*mongoose.Promise = global.Promise
 mongoose.connect(process.env.MONGODB_URI)
 
 mongoose.connection.on('error', (err)=>{
   console.error(err);
   console.log('%s MongoDB connection error. Please make sure MongoDB is running')
-})
+})*/
+
+mongoose.Promise = global.Promise
+const connection = mongoose.connect(process.env.MONGODB_URI || undefined, {useMongoClient: true});
+connection.once('error', (e) => {
+  console.error(e, 'mongoose connection error.');
+});
+connection.once('connected', () => {
+  console.log('mongoose connected');
+});
+
 
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -95,10 +105,10 @@ app.post('/user/signin', userController.postSignIn);
 
 // ##############################################################################################################
 // api-studygroup
-app.post('/api/study-group/send-friend-invitation',passport.authenticate('jwt', {session: false}), studyGroupController.sendInvitationToFriend);
+app.post('/api/study-group/send-friend-invitation',passport.authenticate('jwt', {session: false}), studyGroupController.sendInvitationToFriend); //update this API both in client and server
 app.post('/api/study-group/sign-up-with-group-name',passport.authenticate('jwt', {session: false}), studyGroupController.signUpWithGroupName);
 app.post('/api/study-group/get-group-information',passport.authenticate('jwt', {session: false}), studyGroupController.getGroupAllInformation);
-app.post('/api/study-group/post-message',passport.authenticate('jwt', {session: false}), studyGroupController.postSendMessageToGroupComponent);
+app.post('/api/study-group/post-message',passport.authenticate('jwt', {session: false}), studyGroupController.postchatCommunicationPageComponent); // working on this API now
 app.post('/api/study-group/get-message',passport.authenticate('jwt', {session: false}), studyGroupController.getMessageToGroupComponent);
 app.post('/api/study-group/post-confirm-friend-request-to-group',passport.authenticate('jwt', {session: false}), studyGroupController.postConfirmFriendRequestToGroupComponent);
 app.post('/api/study-group/post-file-upload-to-group',multiparty,passport.authenticate('jwt', {session: false}), studyGroupController.postFileToGroupComponent);

@@ -1,0 +1,12 @@
+<mat-list >
+  <div mat-subheader   [style.background]="'lightgreen'">
+    <h6>Chat</h6>
+    <span class="example-spacer"></span>
+  </div>
+  <div   class="chat hover" (click)= "onSelectUser()">
+  <mat-list-item *ngFor="let listOfGroupMember of listOfGroupMembers">
+     <img matListAvatar src="https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX17071557.jpg" alt="lion">
+    <h5 matLine > {{listOfGroupMember}} </h5>
+  </mat-list-item>
+  </div>
+</mat-list>

@@ -1,0 +1,10 @@
+<div *ngIf = "showChatHomeComponent == true" >
+<app-chat-home-page
+(messageEvent)="executeOnReceiveEMittedMessageFromChatHomePageComponent($event)"
+[listOfGroupMembers]="listOfGroupMembers"
+>   </app-chat-home-page>
+</div>
+
+<div *ngIf = "showChatCommunicationComponent == true">
+<app-chat-communication-page></app-chat-communication-page>
+</div>
