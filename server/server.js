@@ -98,6 +98,10 @@ app.post('/api/study-group/post-friend-request-to-group',passport.authenticate('
 app.post('/api/study-group/create-study-group',passport.authenticate('jwt', {session: false}), studyGroupController.postCreateStudyGroup);
 app.get('/api/study-group/get-users-study-groups',multiparty,passport.authenticate('jwt', {session: false}), studyGroupController.getUserGroups);
 
+app.post('/api/study-group/post-message',passport.authenticate('jwt', {session: false}), studyGroupController.postchatCommunicationPageComponent); // complete with websocket
+app.post('/api/study-group/get-message',passport.authenticate('jwt', {session: false}), studyGroupController.getMessageToGroupComponent); // complete with websocket
+app.post('/api/study-group/send-friend-invitation',passport.authenticate('jwt', {session: false}), studyGroupController.sendInvitationToFriend); //update this API both in client and server
+
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //unUsed
@@ -105,11 +109,10 @@ app.post('/user/signin', userController.postSignIn);
 
 // ##############################################################################################################
 // api-studygroup
-app.post('/api/study-group/send-friend-invitation',passport.authenticate('jwt', {session: false}), studyGroupController.sendInvitationToFriend); //update this API both in client and server
+
 app.post('/api/study-group/sign-up-with-group-name',passport.authenticate('jwt', {session: false}), studyGroupController.signUpWithGroupName);
 app.post('/api/study-group/get-group-information',passport.authenticate('jwt', {session: false}), studyGroupController.getGroupAllInformation);
-app.post('/api/study-group/post-message',passport.authenticate('jwt', {session: false}), studyGroupController.postchatCommunicationPageComponent); // working on this API now
-app.post('/api/study-group/get-message',passport.authenticate('jwt', {session: false}), studyGroupController.getMessageToGroupComponent);
+
 app.post('/api/study-group/post-confirm-friend-request-to-group',passport.authenticate('jwt', {session: false}), studyGroupController.postConfirmFriendRequestToGroupComponent);
 app.post('/api/study-group/post-file-upload-to-group',multiparty,passport.authenticate('jwt', {session: false}), studyGroupController.postFileToGroupComponent);
 app.get('/api/study-group/get-file-upload-to-group/:fileName',passport.authenticate('jwt', {session: false}), studyGroupController.readFileToGroupComponent);

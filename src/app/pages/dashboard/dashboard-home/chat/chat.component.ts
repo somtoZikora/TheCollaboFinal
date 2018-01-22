@@ -16,9 +16,10 @@ export class ChatComponent implements OnInit  {
 
   //data variables
   listOfGroupMembers: Array<any> = []
+  usersForChatCommunicationPageComponent: String
 
     constructor(private _StudyGroupService: StudyGroupService) {}
- 
+
   ngOnInit() {
 
     var group ={
@@ -45,7 +46,8 @@ export class ChatComponent implements OnInit  {
 
   // Functions responsible for showing and hiding component
   executeOnReceiveEMittedMessageFromChatHomePageComponent($event){
-  if ($event === 'hideChatHomePageComponentFromChatHomePageComponent') {
+  if ($event.message === 'hideChatHomePageComponentFromChatHomePageComponent') {
+      this.usersForChatCommunicationPageComponent = $event.user
       this.showChatHomeComponent = false;
       this.showChatCommunicationComponent = true;
     }

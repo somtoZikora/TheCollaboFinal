@@ -277,10 +277,10 @@ exports.getMessageToGroupComponent = (req, res) => {
   var query = {groupName: req.body.groupName}
 listOfStudyGroups.findOne(query, (err, studyGroup) => {
   if (err) throw err
-  if(!studygroup) return res.json({success: false, message: ' You dont belong to any group'});
+  if(!studyGroup) return res.json({success: false, message: ' You dont belong to any group'});
   res.json({
     success: true,
-    messages: studygroup.messages
+    messages: studyGroup.messages
   })
 })
 }

@@ -6,5 +6,7 @@
 </div>
 
 <div *ngIf = "showChatCommunicationComponent == true">
-<app-chat-communication-page></app-chat-communication-page>
+<app-chat-communication-page
+[usersForChatCommunicationPageComponent]="usersForChatCommunicationPageComponent"
+></app-chat-communication-page>
 </div>

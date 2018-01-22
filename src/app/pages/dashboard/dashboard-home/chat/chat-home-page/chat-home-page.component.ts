@@ -10,16 +10,17 @@ export class ChatHomePageComponent implements OnInit  {
       @Input() listOfGroupMembers: any;
       @Output() messageEvent = new EventEmitter<any>();
 
-  ngOnInit() {
-    console.log(this.listOfGroupMembers)
-  }
+  ngOnInit() {}
 
-  onSelectUser():any{
-    /*var user = localStorage.getItem("User").username;
-    for (let listOfGroupMember of listOfGroupMembers) {
-        if (user == listOfGroupMember)
-         return this.messageEvent.emit('hideChatHomePageComponentFromChatHomePageComponent');
-    }*/
+  onSelectUser(listOfGroupMember):any{
+    var emittedMessageFromChatHomePageComponent = {
+      user: listOfGroupMember,
+      message: 'hideChatHomePageComponentFromChatHomePageComponent'
+    }
+    //for (let listOfGroupMember of this.listOfGroupMembers) {
+        //if (user == listOfGroupMember)
+         return this.messageEvent.emit(emittedMessageFromChatHomePageComponent);
+  //  }
   }
 
 }
