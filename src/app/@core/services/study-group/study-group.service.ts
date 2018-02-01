@@ -68,5 +68,10 @@ return this._http.post('/api/study-group/post-message', group, {headers:
   new HttpHeaders().set('Content-Type', 'application/json')})
 }
 
+//used in dashboardComponent to get groupRandomNumber
+postGetGroupRandomNumber(groupName): any{
+return this._http.post('/api/study-group/get-groupRandomNumber', groupName, {headers:
+  new HttpHeaders().set('Content-Type', 'application/json')})
+}
 
 }

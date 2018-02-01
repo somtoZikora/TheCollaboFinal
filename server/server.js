@@ -3,6 +3,7 @@
  */
 var express = require('express');
 var app = express();
+var listOfStudyGroups = require('./models/Studygroup');  // to be used with socket.io
 
 // Allow cross site origin
 app.use(function(req, res, next, error) {
@@ -14,6 +15,8 @@ app.use(function(req, res, next, error) {
 
 var server = require('http').createServer(app);
 var io =require('socket.io').listen(server)
+
+
 
 // Middle ware to Allow API request from different domains
 
@@ -27,7 +30,10 @@ const passport = require('passport');
 var morgan = require('morgan');
 var jwt = require('jsonwebtoken');
 var passportCofig = require('./config/passport');
-//var cors = require('cors');
+
+//var crypto = require('crypto');
+//var socketioJwt = require('socketio-jwt');
+
 
 var multiparty = require('connect-multiparty')();
 
@@ -44,18 +50,6 @@ const userController = require('./controllers/user');
 const studyGroupController = require('./controllers/studygroups');
 
 var port = 3000;
-
-//app.use(cors());
-
-
-/*connect to mongo db*/
-/*mongoose.Promise = global.Promise
-mongoose.connect(process.env.MONGODB_URI)
-
-mongoose.connection.on('error', (err)=>{
-  console.error(err);
-  console.log('%s MongoDB connection error. Please make sure MongoDB is running')
-})*/
 
 mongoose.Promise = global.Promise
 const connection = mongoose.connect(process.env.MONGODB_URI || undefined, {useMongoClient: true});
@@ -101,8 +95,7 @@ app.get('/api/study-group/get-users-study-groups',multiparty,passport.authentica
 app.post('/api/study-group/post-message',passport.authenticate('jwt', {session: false}), studyGroupController.postchatCommunicationPageComponent); // complete with websocket
 app.post('/api/study-group/get-message',passport.authenticate('jwt', {session: false}), studyGroupController.getMessageToGroupComponent); // complete with websocket
 app.post('/api/study-group/send-friend-invitation',passport.authenticate('jwt', {session: false}), studyGroupController.sendInvitationToFriend); //update this API both in client and server
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+app.post('/api/study-group/get-groupRandomNumber',passport.authenticate('jwt', {session: false}), studyGroupController.getGroupRandomNumber);
 
 //unUsed
 app.post('/user/signin', userController.postSignIn);
@@ -119,22 +112,90 @@ app.get('/api/study-group/get-file-upload-to-group/:fileName',passport.authentic
 app.post('/api/study-group/post-file-update-to-group',passport.authenticate('jwt', {session: false}), studyGroupController.postUpdateFileComponent);
 
 // ##############################################################################################################
+
 /* Send all other requests to angular app */
 app.get('*', (req, res)=>{
   res.sendFile(path.join(__dirname, '../dist/index.html' ))
 })
 
-server.listen(port)
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//server.listen(port)
+
+// ################################Delete if it does not work##############################################################################
+/*global.userSessions = {};
+
+
+function checkWebSocketAuthToken(websocketoken, callback){
+  var sendWebSocketTokenToUser = true
+  if(websocketoken == userSessions[websocketoken] ){
+  sendWebSocketTokenToUser = false
+  callback(sendWebSocketTokenToUser, websocketoken)
+}else{
+  var newWebSocketToken = crypto.randomBytes(64).toString('base64');
+  userSessions[newWebSocketToken] = newWebSocketToken
+  sendWebSocketTokenToUser = true
+    callback(sendWebSocketTokenToUser, newWebSocketToken)
+}
+
+}
+
+io.use(function(socket,next ){
+  socketioJwt.authorize({
+  secret: process.env.JWT_SECRET,
+  handshake: true
+})
+next();
+}
+);
+
+// ##############################################################################################################
+
+
 io.sockets.on('connection', (socket)=>{
   console.log('new Connection made')
+  //console.log(socket.handshake.query.token)
+
+  socket.auth = false;
+   socket.on('authenticate', function(data){
+     console.log(data.authToken)
+     checkWebSocketAuthToken(data.websocketToken, function(sendWebSocketTokenToUser, newWebSocketToken){
+       if (sendWebSocketTokenToUser == true){
+         //socket.auth = true;
+           io.emit('saveWebSocketToken', newWebSocketToken)
+       }
+     });
+   });
+
 
   socket.on('send-message', (data)=>{
-    //console.log(data.text);
-    io.socket.emit('message-received', data)
+    io.emit('message-received', data)
   })
 
 })
+*/
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-/*app.listen(port, function(){
-  console.log('Server started on port '+port);
-});*/
+server.listen(port)
+
+global.userSessions = {};
+
+
+io.sockets.on('connection', (socket)=>{
+  console.log('new Connection made')
+
+  socket.on('authenticate', (data)=>{
+
+    try {
+    var decoded = jwt.verify(data.token.replace(/^bearer\s/, ''), process.env.JWT_SECRET);
+    random = data.groupRandomNumber
+      socket.join(data.groupRandomNumber)
+      socket.on('send-message', (data)=>{
+        io.sockets.in(data.groupRandomNumber).emit('message-received', data)
+      })
+
+    } catch(err) {
+      console.log(err)
+    }
+
+});
+})

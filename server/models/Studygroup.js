@@ -21,6 +21,7 @@ const  StudyGroup = module.exports =mongoose.model('StudyGroup', StudyGroupSchem
 var mongoose = require('mongoose');
 var StudyGroupSchema = mongoose.Schema({
   groupName: { type : String , unique : true },
+  groupRandomNumber: { type : String , unique : true },
   groupMembers: [{ type: mongoose.Schema.Types.ObjectId,
     ref: 'User'}],
   messages: [{sender: String, message: String}],

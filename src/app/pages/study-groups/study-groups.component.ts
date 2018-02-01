@@ -46,15 +46,15 @@ export class StudygroupsComponent implements OnInit  {
   // constructor
   constructor(private _StudyGroupService: StudyGroupService,
               private _ProfileService: ProfileService,
-              private _SocketGroupService: SocketGroupService
+            //  private _SocketGroupService: SocketGroupService
    ) {}
 
   // oninit hook
   ngOnInit() {
 // #############################################################
-    this._SocketGroupService.on('mesage-received', (msg: any) => {
+    /*this._SocketGroupService.on('mesage-received', (msg: any) => {
       this.messages.push(msg);
-    } )
+    } )*/
 
     // ###########################################################
 
@@ -98,8 +98,8 @@ export class StudygroupsComponent implements OnInit  {
     const message = {
       text: this.messageText
     };
-    this._SocketGroupService.emit('send-message', message);
-    this.messageText = '';
+    /*this._SocketGroupService.emit('send-message', message);
+    this.messageText = '';*/
   }
   // ######################################################################
 

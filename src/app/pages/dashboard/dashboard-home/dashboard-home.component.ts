@@ -13,6 +13,10 @@ export class DashboardHomeComponent implements OnInit {
   constructor(private _StudyGroupService: StudyGroupService) { }
 
   ngOnInit() {
+    var groupName = localStorage.getItem("groupName")
+    this._StudyGroupService.postGetGroupRandomNumber({groupName:groupName}).subscribe(data => {
+    localStorage.setItem('groupRandomNumber', data.groupRandomNumber);
+  });
 
   }
 

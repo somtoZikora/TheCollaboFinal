@@ -8,6 +8,7 @@ const nodemailer = require('nodemailer');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
+var crypto = require('crypto');
 
 //************************************************************************************************
 var mongoose = require('mongoose');
@@ -77,8 +78,11 @@ exports.postCreateStudyGroup = (req, res) =>{
    return res.send(errors);
   }
 
+  var groupRandomNumber = crypto.randomBytes(64).toString('base64');
+
     var newStudyGroup = new listOfStudyGroups({
-      groupName: req.body.groupName
+      groupName: req.body.groupName,
+      groupRandomNumber:groupRandomNumber
     })
 
   //Save new group
@@ -451,6 +455,20 @@ exports.getUserGroups = (req,res) =>{
 
 }
 
+exports.getGroupRandomNumber = (req,res) =>{
+
+  var queryInput = {
+    groupName: req.body.groupName
+  }
+
+  var query = listOfStudyGroups.findOne(queryInput).select('groupRandomNumber');
+
+  query.exec(function (err, groupRandomNumber) {
+      if (err) return next(err);
+      res.send(groupRandomNumber);
+  });
+
+}
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 

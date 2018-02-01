@@ -22,3 +22,13 @@
 </div>
 </div>
 </div>
+
+</div>
+</mat-list>
+
+<div class="form-container">
+  <mat-form-field>
+    <input matInput placeholder="Send Message" [(ngModel)] ="message" name="message"
+    (keyup.enter) = "onSendMessage()">
+  </mat-form-field>
+</div>
