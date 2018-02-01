@@ -6,7 +6,9 @@ export class SocketGroupService {
  socket: any;
 
   constructor() {
-    this.socket = io.connect('http://localhost:3000/');
+    this.socket = io.connect('http://localhost:3000/', {
+  query: "token="+ 'jjjjdhd'
+});
   }
 
   on(eventName: any, callback: any) {
@@ -32,5 +34,3 @@ export class SocketGroupService {
 
 
 }
-
-

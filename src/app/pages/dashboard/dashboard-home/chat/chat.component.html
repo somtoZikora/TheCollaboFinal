@@ -1,3 +1,6 @@
+
+<!--currect div -->
+<!--
 <div *ngIf = "showChatHomeComponent == true" >
 <app-chat-home-page
 (messageEvent)="executeOnReceiveEMittedMessageFromChatHomePageComponent($event)"
@@ -6,6 +9,14 @@
 </div>
 
 <div *ngIf = "showChatCommunicationComponent == true">
+<app-chat-communication-page
+[usersForChatCommunicationPageComponent]="usersForChatCommunicationPageComponent"
+></app-chat-communication-page>
+</div>
+-->
+
+<!--Take out for working solution-->
+<div >
 <app-chat-communication-page
 [usersForChatCommunicationPageComponent]="usersForChatCommunicationPageComponent"
 ></app-chat-communication-page>
