@@ -221,7 +221,7 @@ exports.getGroupAllInformation = (req, res) => {
 }
 
 
-//used in getSummaryOfGroupInformationComponent
+//used in getSummaryOfGroupInformationComponent and ChatComponent
 exports.getSummaryOfGroupInformation = (req, res) => {
 
   var groupName = req.body.groupName;
@@ -253,14 +253,14 @@ exports.getSummaryOfGroupInformation = (req, res) => {
 
 }
 
-// used in sendMessageToGroupComponent
-exports.postSendMessageToGroupComponent = (req, res)=> {
+// used in chatCommunicationPageComponent
+exports.postchatCommunicationPageComponent = (req, res)=> {
 
   var query = {groupName: req.body.groupName}
   listOfStudyGroups.findOne(query, (err, studyGroup) => {
     if(err) throw err
     if(!studyGroup) return res.json({success: false, message: 'You dont belong to any group'})
-    studyGroup.messages.push({sender:req.body.username, message: req.body.message})
+    studyGroup.messages.push({sender:req.user.username, message: req.body.message})
     studyGroup.save((err, studyGroup) =>{
       if (err) throw err
       if(!studyGroup) return res.json({success: false, message: 'Message not save'})
@@ -277,10 +277,10 @@ exports.getMessageToGroupComponent = (req, res) => {
   var query = {groupName: req.body.groupName}
 listOfStudyGroups.findOne(query, (err, studyGroup) => {
   if (err) throw err
-  if(!studygroup) return res.json({success: false, message: ' You dont belong to any group'});
+  if(!studyGroup) return res.json({success: false, message: ' You dont belong to any group'});
   res.json({
     success: true,
-    messages: studygroup.messages
+    messages: studyGroup.messages
   })
 })
 }
@@ -435,7 +435,7 @@ exports.postUpdateFileComponent = (req, res) => {
 
 }
 
-//++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 exports.getUserGroups = (req,res) =>{
 
   var queryInput = {

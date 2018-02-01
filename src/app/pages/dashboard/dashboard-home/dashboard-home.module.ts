@@ -9,6 +9,7 @@ import {FormsModule} from '@angular/forms';
 import { AngularDraggableModule } from 'angular2-draggable';
 import {DashboardHomeComponent} from './dashboard-home.component'
 import {SendFriendInvitationComponent} from './send-friend-invitation/send-friend-invitation.component'
+import {ChatModule} from './chat/chat.module'
 
 import {MatGridListModule,
         MatListModule,
@@ -33,7 +34,8 @@ import {ThemeModule} from './../../../@theme/theme.module';
     HttpClientModule,
     AngularDraggableModule,
     MATERIAL,
-    ThemeModule
+    ThemeModule,
+    ChatModule
   ],
   exports: [
     DashboardHomeComponent,

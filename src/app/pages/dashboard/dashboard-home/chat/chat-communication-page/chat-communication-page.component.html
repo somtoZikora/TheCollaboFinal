@@ -1,0 +1,24 @@
+<mat-list role="list">
+  <div mat-subheader   [style.background]="'lightgreen'">
+    <h6>Chat</h6>
+    <span class="example-spacer"></span>
+  </div>
+  <div class="chat" style="background-color:#E5DDD5">
+
+    <div  *ngFor="let groupMessage of groupMessages">
+    <div *ngIf = "sender==groupMessage.sender" class="clearfix" >
+  <div class="pull-right chat-border-radius" style="background-color:#DCF8C6">
+     <h6 style="text-align: center; color:#907FDE">{{groupMessage.sender}}</h6>
+     <p>{{groupMessage.message}}</p>
+  </div>
+  </div>
+  </div>
+
+  <div   *ngFor="let groupMessage of groupMessages">
+  <div class="clearfix" *ngIf = "sender!=groupMessage.sender">
+<div class="pull-left chat-border-radius" style="background-color:#DCF8C6">
+   <h6 style="text-align: center; color:#907FDE">{{groupMessage.sender}}</h6>
+   <p>{{groupMessage.message}}</p>
+</div>
+</div>
+</div>

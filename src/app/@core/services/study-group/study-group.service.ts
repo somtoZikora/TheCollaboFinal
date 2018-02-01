@@ -56,4 +56,17 @@ getUsersGroups(): any{
   );
 }
 
+//used in ChatCommunicationPageComponent to get group Messages
+postgetGroupMessages(group): any{
+return this._http.post('/api/study-group/get-message', group, {headers:
+  new HttpHeaders().set('Content-Type', 'application/json')})
+}
+
+//used in ChatCommunicationPageComponent to get group Messages
+postPostGroupMessages(group): any{
+return this._http.post('/api/study-group/post-message', group, {headers:
+  new HttpHeaders().set('Content-Type', 'application/json')})
+}
+
+
 }
